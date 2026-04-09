@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Sobre Mí | Jorge Ricardo</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#8eff71",
+                        "surface": "#0e0e0f",
+                        "on-surface": "#ffffff",
+                        "on-surface-variant": "#acaaab",
+                        "outline-variant": "#484849",
+                        "surface-container-low": "#131314",
+                        "surface-container-high": "#1f1f21",
+                        "surface-container-highest": "#262627"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .terminal-glow {
+            text-shadow: 0 0 12px rgba(142, 255, 113, 0.4);
+        }
+        html { scroll-behavior: smooth; }
+        body { background-color: #0e0e0f; color: white; }
+
+        /* Mobile Menu */
+        #mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(14, 14, 15, 0.98);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #mobile-menu-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .mobile-link {
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #8eff71;
+            letter-spacing: -0.05em;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: rgba(142, 255, 113, 0.2);
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -14px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            background: #8eff71;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #8eff71;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+    
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 bg-[#0e0e0f]/80 backdrop-blur-md border-b border-[#1f1f21] flex justify-between items-center px-6 py-4">
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <span class="material-symbols-outlined text-primary group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                <span class="text-xl font-black tracking-tighter text-[#8eff71] uppercase font-['Inter']">JORGE_RICARDO</span>
+            </a>
+        </div>
+        <div class="hidden md:flex gap-8 items-center">
+            <a class="font-['Inter'] font-bold tracking-tighter uppercase text-zinc-200" href="about.html">Sobre Mí</a>
+            <a class="font-['Inter'] font-bold tracking-tighter uppercase text-zinc-500 hover:text-zinc-200 transition-colors" href="index.html#stack">Tecnologías</a>
+            <a class="font-['Inter'] font-bold tracking-tighter uppercase text-zinc-500 hover:text-zinc-200 transition-colors" href="index.html#portafolio">Portafolio</a>
+        </div>
+        <div class="md:hidden flex items-center pr-2">
+            <button id="mobile-menu-btn" class="text-primary p-2">
+                <span class="material-symbols-outlined text-3xl">menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-24">
+        <!-- Hero Personal -->
+        <section class="px-6 md:px-12 lg:px-24 mb-24">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-primary text-sm font-black uppercase mb-6">
+                        Soluciones Architect | DXB
+                    </span>
+                    <h1 class="text-6xl md:text-8xl font-black tracking-tighter uppercase mb-6 leading-none">Sobre<br><span class="text-primary accent-glow">Mí</span></h1>
+                    <p class="text-xl text-on-surface-variant font-light max-w-xl leading-relaxed mb-8">
+                        Arquitecto de soluciones basado en **Dubai** especializado en la convergencia de diseño interactivo de alta gama y automatización de procesos empresariales. 
+                        Mi enfoque radica en la escalabilidad absoluta y la eliminación de fricción operativa mediante tecnología de vanguardia.
+                    </p>
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <span class="flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-bold uppercase">
+                            <i class="fa-brands fa-github"></i> GitHub
+                        </span>
+                        <span class="flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-bold uppercase">
+                            <i class="fa-brands fa-linkedin"></i> LinkedIn
+                        </span>
+                    </div>
+                </div>
+                <div class="flex justify-center order-1 md:order-2">
+                    <div class="relative group">
+                        <div class="absolute -inset-4 bg-primary/20 rounded-full blur-2xl group-hover:bg-primary/30 transition-all duration-1000"></div>
+                        <img class="relative w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-8 border-[#1a1a1c] shadow-2xl" 
+                             src="466467617_1329864694687714_4947659882245996979_n.jpg" 
+                             alt="Jorge Ricardo">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detalle: Experiencia y Estudios -->
+        <section class="px-6 md:px-12 lg:px-24 py-24 bg-surface-container-low border-y border-white/5">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16">
+                
+                <!-- Experiencia -->
+                <div class="lg:col-span-2 space-y-12">
+                    <h2 class="text-3xl font-black tracking-tighter uppercase flex items-center gap-3">
+                        <span class="w-8 h-1 bg-primary"></span> Experiencia Profesional
+                    </h2>
+                    
+                    <div class="pl-8 space-y-12 border-l border-white/10">
+                        <div class="relative timeline-item">
+                            <div class="timeline-dot"></div>
+                            <span class="text-primary font-label text-xs tracking-widest uppercase">2022 — Presente</span>
+                            <h3 class="text-2xl font-bold uppercase mt-2">Senior Solutions Architect</h3>
+                            <p class="text-on-surface-variant mt-2 font-light">Liderando el diseño de infraestructuras digitales escalables para clientes globales en Dubai. Especializado en optimización de rendimiento y arquitecturas reactivas.</p>
+                        </div>
+
+                        <div class="relative timeline-item">
+                            <div class="timeline-dot"></div>
+                            <span class="text-zinc-500 font-label text-xs tracking-widest uppercase">2019 — 2022</span>
+                            <h3 class="text-2xl font-bold uppercase mt-2">Expert ERP Automator</h3>
+                            <p class="text-on-surface-variant mt-2 font-light">Implementación de ecosistemas Odoo personalizados. Reducción de costos operativos mediante la automatización de flujos de trabajo críticos.</p>
+                        </div>
+                        
+                        <div class="relative timeline-item">
+                            <div class="timeline-dot"></div>
+                            <span class="text-zinc-500 font-label text-xs tracking-widest uppercase">2017 — 2019</span>
+                            <h3 class="text-2xl font-bold uppercase mt-2">Full-Stack Developer</h3>
+                            <p class="text-on-surface-variant mt-2 font-light">Desarrollo de aplicaciones web de alto rendimiento y consultoría técnica para startups tecnológicas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estudios & Skills -->
+                <div class="space-y-16">
+                    <div>
+                        <h2 class="text-3xl font-black tracking-tighter uppercase flex items-center gap-3 mb-8">
+                            <span class="w-8 h-1 bg-primary"></span> Estudios
+                        </h2>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-bold uppercase text-sm">Ingeniería en Sistemas</h4>
+                                <p class="text-on-surface-variant text-sm font-light">Especialidad en Arquitectura de Software</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold uppercase text-sm">Cloud Architect Certification</h4>
+                                <p class="text-on-surface-variant text-sm font-light">Advanced AWS & Azure Solutions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-3xl font-black tracking-tighter uppercase flex items-center gap-3 mb-8">
+                            <span class="w-8 h-1 bg-primary"></span> Skills_Core
+                        </h2>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-surface-container-high border border-white/5 rounded-lg text-center">
+                                <p class="font-black text-xs uppercase tracking-widest">Next.js</p>
+                            </div>
+                            <div class="p-4 bg-surface-container-high border border-white/5 rounded-lg text-center">
+                                <p class="font-black text-xs uppercase tracking-widest">Python/Odoo</p>
+                            </div>
+                            <div class="p-4 bg-surface-container-high border border-white/5 rounded-lg text-center">
+                                <p class="font-black text-xs uppercase tracking-widest">Automation</p>
+                            </div>
+                            <div class="p-4 bg-surface-container-high border border-white/5 rounded-lg text-center">
+                                <p class="font-black text-xs uppercase tracking-widest">UI Motion</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Call to Action -->
+        <section class="py-24 px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-black uppercase mb-8 tracking-tighter">¿Listo para escalar?</h2>
+            <a href="mailto:info@jorgericardo.com" class="inline-block bg-primary text-on-primary px-12 py-5 text-lg font-black uppercase hover:brightness-110 transition-all active:scale-95">
+                Iniciar Proyecto
+            </a>
+        </section>
+    </main>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-primary">
+            <span class="material-symbols-outlined text-4xl">close</span>
+        </button>
+        <a href="about.html" class="mobile-link">Sobre Mí</a>
+        <a href="index.html#stack" class="mobile-link">Tecnologías</a>
+        <a href="index.html#portafolio" class="mobile-link">Portafolio</a>
+    </div>
+
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('close-menu-btn');
+        const menuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn?.addEventListener('click', () => menuOverlay.classList.add('active'));
+        closeBtn?.addEventListener('click', () => menuOverlay.classList.remove('active'));
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => menuOverlay.classList.remove('active'));
+        });
+
+        // Simple reveal animation
+        gsap.from("main > section", {
+            y: 40,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power2.out"
+        });
+    </script>
+</body>
+</html>
