@@ -646,12 +646,12 @@
         /* MacBook 3D Section */
         .mac3d-wrapper {
             position: relative;
-            width: 320px;
-            height: 320px;
+            width: 400px;
+            height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transform: scale(1.6) translateY(-40px);
+            transform: scale(2.2); /* Más grande en su nueva sección dedicada */
         }
 
         .mac3d-macbook {
@@ -919,69 +919,34 @@
 
 <main class="pt-24">
     <!-- Hero Section -->
-    <section class="relative min-h-[90vh] flex items-center px-6 md:px-12 lg:px-24 border-b border-outline-variant/15 overflow-hidden">
+    <section class="relative min-h-[85vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 border-b border-outline-variant/15 overflow-hidden">
         <div class="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
             <div class="grid grid-cols-12 h-full w-full">
                 <div class="col-span-1 border-r border-outline-variant/20"></div>
                 <div class="col-span-1 border-r border-outline-variant/20"></div>
                 <div class="col-span-1 border-r border-outline-variant/20"></div>
                 <div class="col-span-1 border-r border-outline-variant/20"></div>
+                <div class="col-span-1 border-r border-outline-variant/20"></div>
+                <div class="col-span-1 border-r border-outline-variant/20"></div>
             </div>
         </div>
-        
-        <div class="relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 lg:gap-20 items-center">
-            <!-- Left Content -->
-            <div class="max-w-3xl">
-                <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 bg-surface-container-highest border-l-2 border-primary">
-                    <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase">ESTADO_SISTEMA: OPTIMIZADO</span>
-                </div>
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6 leading-[0.9]">
-                    Páginas Web Increíbles & <span class="text-primary terminal-glow">Sistemas</span> que trabajan por ti.
-                </h1>
-                <p class="text-lg md:text-xl text-on-surface-variant font-light max-w-2xl mb-10">
-                    Hacemos que tu negocio luzca profesional, atraiga más clientes y automatice esas tareas manuales que te quitan tiempo.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button class="bg-primary text-on-primary px-10 py-4 text-lg font-bold uppercase transition-all hover:brightness-110 active:scale-95">
-                        Agenda una Auditoría de Eficiencia
-                    </button>
-                    <a href="#portafolio" class="border border-outline-variant text-on-surface px-10 py-4 text-lg font-bold uppercase hover:bg-surface-container-high transition-all text-center">
-                        Ver Proyectos
-                    </a>
-                </div>
+        <div class="relative z-10 max-w-5xl">
+            <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 bg-surface-container-highest border-l-2 border-primary">
+                <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase">ESTADO_SISTEMA: OPTIMIZADO</span>
             </div>
-
-            <!-- Right Visual (MacBook) -->
-            <div class="hidden lg:flex justify-center items-center">
-                <div class="mac3d-wrapper">
-                    <div class="mac3d-macbook">
-                        <div class="mac3d-inner">
-                            <div class="mac3d-screen">
-                                <div class="mac3d-face-one">
-                                    <div class="camera"></div>
-                                    <div class="display">
-                                        <div class="shade"></div>
-                                    </div>
-                                    <span>MacBook Air</span>
-                                </div>
-                            </div>
-                            <div class="mac3d-macbody">
-                                <div class="mac3d-face-one">
-                                    <div class="touchpad"></div>
-                                    <div class="keyboard">
-                                        <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
-                                        <div class="key space"></div>
-                                        <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
-                                        <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
-                                        <div class="key f"></div><div class="key f"></div><div class="key f"></div><div class="key f"></div>
-                                    </div>
-                                </div>
-                                <div class="pad one"></div><div class="pad two"></div><div class="pad three"></div><div class="pad four"></div>
-                            </div>
-                        </div>
-                        <div class="mac3d-shadow"></div>
-                    </div>
-                </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6 leading-[0.9]">
+                Páginas Web Increíbles & <span class="text-primary terminal-glow">Sistemas</span> que trabajan por ti.
+            </h1>
+            <p class="text-lg md:text-xl text-on-surface-variant font-light max-w-2xl mb-10">
+                Hacemos que tu negocio luzca profesional, atraiga más clientes y automatice esas tareas manuales que te quitan tiempo.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button class="bg-primary text-on-primary px-10 py-4 text-lg font-bold uppercase transition-all hover:brightness-110 active:scale-95">
+                    Agenda una Auditoría de Eficiencia
+                </button>
+                <a href="#portafolio" class="border border-outline-variant text-on-surface px-10 py-4 text-lg font-bold uppercase hover:bg-surface-container-high transition-all text-center">
+                    Ver Proyectos
+                </a>
             </div>
         </div>
     </section>
@@ -1031,6 +996,45 @@
                 <div class="card-bar">
                     <div class="card-bar-filled"></div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Showcase Section (MacBook) -->
+    <section class="py-32 bg-surface-container-lowest border-t border-primary/10 overflow-hidden flex flex-col items-center">
+        <div class="mb-20 text-center px-6">
+            <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase block mb-2">WORKSPACE_ID: CORE_ENGINEERING</span>
+            <h2 class="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4 text-white">Ingeniería que se <span class="text-primary">Siente</span></h2>
+            <p class="text-on-surface-variant max-w-xl mx-auto uppercase text-xs tracking-tighter">Explora el hardware lógico detrás de nuestras soluciones digitales.</p>
+        </div>
+        
+        <div class="mac3d-wrapper">
+            <div class="mac3d-macbook">
+                <div class="mac3d-inner">
+                    <div class="mac3d-screen">
+                        <div class="mac3d-face-one">
+                            <div class="camera"></div>
+                            <div class="display">
+                                <div class="shade"></div>
+                            </div>
+                            <span>MacBook Air</span>
+                        </div>
+                    </div>
+                    <div class="mac3d-macbody">
+                        <div class="mac3d-face-one">
+                            <div class="touchpad"></div>
+                            <div class="keyboard">
+                                <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                                <div class="key space"></div>
+                                <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                                <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                                <div class="key f"></div><div class="key f"></div><div class="key f"></div><div class="key f"></div>
+                            </div>
+                        </div>
+                        <div class="pad one"></div><div class="pad two"></div><div class="pad three"></div><div class="pad four"></div>
+                    </div>
+                </div>
+                <div class="mac3d-shadow"></div>
             </div>
         </div>
     </section>
