@@ -125,6 +125,7 @@
         #project-info.visible {
             opacity: 1;
             transform: translateX(0);
+            pointer-events: auto;
         }
 
         #project-info h2 {
@@ -1569,6 +1570,9 @@
 
     const inner = document.getElementById('spiral-inner');
     const cards = gsap.utils.toArray('.spiral-card');
+    const infoPanel = document.getElementById('project-info');
+    const infoTitle = document.getElementById('info-title');
+    const infoDesc = document.getElementById('info-desc');
     const infoLink = document.getElementById('info-link');
     const totalCards = cards.length;
     const yStep = 450; 
