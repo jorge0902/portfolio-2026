@@ -365,6 +365,21 @@
             transform: rotate(330deg);
         }
 
+        /* Dynamic Background Layer */
+        .portfolio-dynamic-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            filter: blur(40px) brightness(0.6);
+            transition: background-image 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 0;
+            pointer-events: none;
+        }
+
         /* 3D Stacked Cards - Pilares Tecnológicos */
         .cards-stack {
             display: flex;
@@ -1194,6 +1209,9 @@
 
     <!-- Galería Espiral 3D -->
     <section id="proyectos-3d" class="relative">
+        <!-- Dynamic Image Background -->
+        <div class="portfolio-dynamic-bg" id="dynamic-bg" style="background-image: url('assets/yates_jb.png');"></div>
+
         <!-- Floating Bubbles Background -->
         <div class="portfolio-bubbles-bg">
             <div class="port-bubble"><span></span><span></span><span></span><span></span><span></span></div>
@@ -1702,6 +1720,7 @@
     const infoTitle = document.getElementById('info-title');
     const infoDesc = document.getElementById('info-desc');
     const infoLink = document.getElementById('info-link');
+    const dynamicBg = document.getElementById('dynamic-bg');
     const totalCards = cards.length;
     const yStep = 450; 
 
@@ -1710,27 +1729,32 @@
         {
             title: "Yates JB",
             desc: "Sistema integral de reservas premium y gestión de activos para flotas de lujo en el Caribe y Dubai.",
-            url: "https://yates-jbmy.vercel.app/"
+            url: "https://yates-jbmy.vercel.app/",
+            image: "assets/yates_jb.png"
         },
         {
             title: "Maison Bernel",
             desc: "Boutique digital de alta gama con narrativa visual inmersiva y optimización SEO crítica.",
-            url: "https://maison-bernel-lu-f8bo.vercel.app/"
+            url: "https://maison-bernel-lu-f8bo.vercel.app/",
+            image: "assets/maison_bernel.png"
         },
         {
             title: "Puerta Dubai",
             desc: "Plataforma de servicios de lujo y real estate con integración de APIs de terceros y alta concurrencia.",
-            url: "https://yates-jbmy.vercel.app/"
+            url: "https://yates-jbmy.vercel.app/",
+            image: "assets/puerta_dubai.png"
         },
         {
             title: "Super Dragon",
             desc: "E-commerce escalable con arquitectura modular diseñado para maximizar la velocidad de carga.",
-            url: "https://super-dragon.vercel.app/"
+            url: "https://super-dragon.vercel.app/",
+            image: "assets/super_dragon.png"
         },
         {
             title: "Odoo Auto",
             desc: "Implementación de puentes inteligentes entre Odoo ERP y plataformas web para automatización total.",
-            url: "https://yates-jbmy.vercel.app/"
+            url: "https://yates-jbmy.vercel.app/",
+            image: "assets/odoo_auto.png"
         }
     ];
 
@@ -1775,6 +1799,7 @@
                         infoTitle.innerText = projectData[activeIndex].title;
                         infoDesc.innerText = projectData[activeIndex].desc;
                         infoLink.href = projectData[activeIndex].url;
+                        dynamicBg.style.backgroundImage = `url('${projectData[activeIndex].image}')`;
                         infoPanel.classList.add('visible');
                     }, 300);
                 }
