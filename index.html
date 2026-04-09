@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Jorge Ricardo | Ingeniería Interactiva & Automatización</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-dim": "#2be800",
+                        "surface-dim": "#0e0e0f",
+                        "tertiary-fixed": "#17eefa",
+                        "on-surface": "#ffffff",
+                        "surface-container-highest": "#262627",
+                        "secondary-container": "#006d2f",
+                        "surface-container-lowest": "#000000",
+                        "on-primary-container": "#0b5800",
+                        "error-container": "#b92902",
+                        "tertiary": "#88f6ff",
+                        "secondary-dim": "#82ea96",
+                        "surface-container-low": "#131314",
+                        "on-error-container": "#ffd2c8",
+                        "on-tertiary": "#005d62",
+                        "tertiary-container": "#17eefa",
+                        "on-primary-fixed-variant": "#0d6200",
+                        "primary-container": "#2ff801",
+                        "on-primary-fixed": "#064200",
+                        "on-secondary-fixed": "#004a1e",
+                        "on-tertiary-container": "#005458",
+                        "secondary-fixed-dim": "#82ea96",
+                        "primary": "#8eff71",
+                        "on-surface-variant": "#acaaab",
+                        "on-background": "#ffffff",
+                        "on-error": "#450900",
+                        "primary-fixed": "#2ff801",
+                        "surface-container": "#19191b",
+                        "surface": "#0e0e0f",
+                        "surface-bright": "#2c2c2d",
+                        "surface-tint": "#8eff71",
+                        "background": "#0e0e0f",
+                        "secondary-fixed": "#90f9a3",
+                        "tertiary-fixed-dim": "#00deea",
+                        "tertiary-dim": "#00deea",
+                        "inverse-on-surface": "#555556",
+                        "inverse-primary": "#106f00",
+                        "inverse-surface": "#fcf8f9",
+                        "outline-variant": "#484849",
+                        "on-secondary-fixed-variant": "#006a2e",
+                        "on-tertiary-fixed": "#003f43",
+                        "on-tertiary-fixed-variant": "#005e63",
+                        "on-secondary": "#005f28",
+                        "outline": "#767576",
+                        "surface-container-high": "#1f1f21",
+                        "error-dim": "#d53d18",
+                        "on-primary": "#0d6100",
+                        "surface-variant": "#262627",
+                        "primary-fixed-dim": "#2be800",
+                        "error": "#ff7351",
+                        "on-secondary-container": "#e4ffe2",
+                        "secondary": "#90f9a3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .machined-gradient {
+            background: linear-gradient(45deg, #131314 0%, #1f1f21 100%);
+        }
+        .terminal-glow {
+            text-shadow: 0 0 12px rgba(142, 255, 113, 0.4);
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        html { scroll-behavior: smooth; }
+
+        /* Estilos Espiral 3D */
+        #proyectos-3d {
+            position: relative;
+            background: #050505;
+            overflow: hidden;
+        }
+
+        .scene-container {
+            width: 100%; 
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5%;
+            perspective: 1500px; 
+            gap: 4rem;
+        }
+
+        #project-info {
+            max-width: 450px;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        #project-info.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        #project-info h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            color: #8eff71;
+            text-shadow: 0 0 20px rgba(142, 255, 113, 0.3);
+        }
+
+        #project-info p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .info-tag {
+            display: inline-block;
+            font-family: 'Space Grotesk';
+            font-size: 0.75rem;
+            color: #8eff71;
+            border-left: 2px solid #8eff71;
+            padding-left: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 1024px) {
+            .scene-container {
+                flex-direction: column;
+                justify-content: center;
+                gap: 4rem;
+                padding: 2rem;
+            }
+            #project-info {
+                text-align: center;
+                max-width: 100%;
+            }
+        }
+
+        .spiral-inner {
+            --w: 320px;           
+            --h: 200px;           
+            --translateZ: 380px;
+            --y-step: 450px;
+            position: relative;
+            width: var(--w);
+            height: var(--h);
+            transform-style: preserve-3d;
+            margin-left: 12rem;
+        }
+
+        .spiral-card {
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(var(--color-card), 0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            backface-visibility: hidden;
+            transition: filter 0.5s, transform 0.5s; 
+            transform: 
+                rotateY(calc((360deg / var(--quantity)) * var(--index))) 
+                translateZ(var(--translateZ))
+                translateY(calc(var(--index) * var(--y-step)));
+        }
+
+        .spiral-img {
+            width: 100%; height: 100%;
+            background: radial-gradient(
+                circle at center,
+                rgba(var(--color-card), 0.1) 0%,
+                rgba(var(--color-card), 0.3) 70%,
+                rgba(var(--color-card), 0.6) 100%
+            );
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .spiral-card.active {
+            filter: brightness(1.2);
+            border: 1px solid rgba(var(--color-card), 0.8);
+            box-shadow: 0 0 30px rgba(var(--color-card), 0.2);
+        }
+
+        .spiral-card h4 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .spiral-card p {
+            font-size: 0.75rem;
+            font-family: 'Space Grotesk';
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0e0e0f] border-b border-[#1f1f21] flex justify-between items-center px-6 py-4 w-full">
+    <div class="text-xl font-black tracking-tighter text-[#8eff71] uppercase font-['Inter']">
+        JORGE_RICARDO
+    </div>
+    <div class="hidden md:flex gap-8 items-center">
+        <a class="font-['Inter'] font-bold tracking-tighter uppercase text-zinc-500 hover:text-zinc-200 transition-colors" href="#experiencia">Experiencia</a>
+        <a class="font-['Inter'] font-bold tracking-tighter uppercase text-zinc-500 hover:text-zinc-200 transition-colors" href="#stack">Tecnologías</a>
+        <a class="font-['Inter'] font-bold tracking-tighter uppercase text-zinc-500 hover:text-zinc-200 transition-colors" href="#portafolio">Portafolio</a>
+        <a class="font-['Inter'] font-bold tracking-tighter uppercase text-zinc-500 hover:text-zinc-200 transition-colors" href="#filosofia">Filosofía</a>
+    </div>
+    <button class="bg-primary text-on-primary px-6 py-2 font-['Inter'] font-bold tracking-tighter uppercase transition-all duration-150 active:scale-95">
+        INICIAR_PROYECTO
+    </button>
+</nav>
+
+<main class="pt-24">
+    <!-- Hero Section -->
+    <section class="relative min-h-[85vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 border-b border-outline-variant/15 overflow-hidden">
+        <div class="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
+            <div class="grid grid-cols-12 h-full w-full">
+                <div class="col-span-1 border-r border-outline-variant/20"></div>
+                <div class="col-span-1 border-r border-outline-variant/20"></div>
+                <div class="col-span-1 border-r border-outline-variant/20"></div>
+                <div class="col-span-1 border-r border-outline-variant/20"></div>
+                <div class="col-span-1 border-r border-outline-variant/20"></div>
+                <div class="col-span-1 border-r border-outline-variant/20"></div>
+            </div>
+        </div>
+        <div class="relative z-10 max-w-5xl">
+            <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 bg-surface-container-highest border-l-2 border-primary">
+                <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase">ESTADO_SISTEMA: OPTIMIZADO</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6 leading-[0.9]">
+                Páginas Web Increíbles & <span class="text-primary terminal-glow">Sistemas</span> que trabajan por ti.
+            </h1>
+            <p class="text-lg md:text-xl text-on-surface-variant font-light max-w-2xl mb-10">
+                Hacemos que tu negocio luzca profesional, atraiga más clientes y automatice esas tareas manuales que te quitan tiempo.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button class="bg-primary text-on-primary px-10 py-4 text-lg font-bold uppercase transition-all hover:brightness-110 active:scale-95">
+                    Agenda una Auditoría de Eficiencia
+                </button>
+                <a href="#portafolio" class="border border-outline-variant text-on-surface px-10 py-4 text-lg font-bold uppercase hover:bg-surface-container-high transition-all text-center">
+                    Ver Proyectos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Stack -->
+    <section class="py-24 px-6 md:px-12 lg:px-24 bg-surface-container-low" id="stack">
+        <div class="mb-16">
+            <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase block mb-2">001 // CAPACIDADES_NUCLEO</span>
+            <h2 class="text-4xl font-black tracking-tighter uppercase">Pilares Tecnológicos</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-0">
+            <!-- Web Dev -->
+            <div class="machined-gradient p-12 border-r border-outline-variant/10 flex flex-col h-full">
+                <span class="material-symbols-outlined text-primary text-5xl mb-8">developer_mode</span>
+                <h3 class="text-2xl font-bold uppercase mb-4 font-headline">Desarrollo Web</h3>
+                <p class="text-on-surface-variant mb-8 leading-relaxed">Landing pages de alta conversión y aplicaciones web empresariales construidas con Next.js y Tailwind CSS para máxima velocidad.</p>
+                <div class="mt-auto flex flex-wrap gap-2">
+                    <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">REACT_18</span>
+                    <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">TYPESCRIPT</span>
+                </div>
+            </div>
+            <!-- Automation & CRM -->
+            <div class="bg-surface-container-high p-12 border-r border-outline-variant/10 flex flex-col h-full">
+                <span class="material-symbols-outlined text-primary text-5xl mb-8">settings_input_component</span>
+                <h3 class="text-2xl font-bold uppercase mb-4 font-headline">Automatización ERP</h3>
+                <p class="text-on-surface-variant mb-8 leading-relaxed">Implementaciones completas de Odoo y flujos de trabajo personalizados para eliminar la fricción manual en tus operaciones diarias.</p>
+                <div class="mt-auto flex flex-wrap gap-2">
+                    <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">ODOO_ERP</span>
+                    <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">PYTHON_SCRIPTS</span>
+                </div>
+            </div>
+            <!-- Lead Engineering -->
+            <div class="machined-gradient p-12 flex flex-col h-full">
+                <span class="material-symbols-outlined text-primary text-5xl mb-8">query_stats</span>
+                <h3 class="text-2xl font-bold uppercase mb-4 font-headline">Ingeniería de Leads</h3>
+                <p class="text-on-surface-variant mb-8 leading-relaxed">Arquitectura de embudos de captación de clientes conectados directamente a tu pipeline de ventas sin pérdida de datos.</p>
+                <div class="mt-auto flex flex-wrap gap-2">
+                    <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">PIPELINE_SYNC</span>
+                    <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">ANALYTICS_V4</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gravity Shatter Text Section -->
+    <section id="gravity-shatter" class="relative w-full" style="height: 300vh;">
+        <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden" style="perspective: 1000px; background: #0e0e0f;">
+            
+            <div id="shatter-text-wrapper" style="position: absolute; top: 25%; z-index: 10; width: 100%;">
+                <h2 id="shatter-text" class="font-display font-black text-center terminal-glow uppercase" style="color: #8eff71; text-shadow: 0 0 40px rgba(16,185,129,0.3); font-size: 2.5rem;"></h2>
+            </div>
+
+            <div class="relative flex w-full max-w-[1200px] h-full mx-auto text-center" style="pointer-events: none;">
+                <div class="shatter-img-1" style="position: absolute; top: 35%; left: 5%; width: 40%; border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); z-index: 2;">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80" style="width: 100%; aspect-ratio: 16/9; object-fit: cover;" alt="">
+                </div>
+                <div class="shatter-img-2" style="position: absolute; top: 25%; right: 5%; width: 35%; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); z-index: 1;">
+                    <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=800&q=80" style="width: 100%; aspect-ratio: 4/3; object-fit: cover;" alt="">
+                </div>
+                <div class="shatter-img-3" style="position: absolute; top: 60%; left: 30%; width: 40%; border-radius: 24px; overflow: hidden; box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 1); z-index: 3;">
+                    <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80" style="width: 100%; aspect-ratio: 16/9; object-fit: cover;" alt="">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Galería Espiral 3D -->
+    <section id="proyectos-3d" class="relative">
+        <!-- Título de la sección -->
+        <div class="absolute top-12 left-0 w-full flex flex-col items-center justify-center z-20 pointer-events-none text-center">
+            <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase block mb-2">002 // CASOS_DE_ESTUDIO</span>
+            <h2 class="text-4xl md:text-5xl font-black tracking-tighter uppercase text-white">Portafolio</h2>
+        </div>
+
+        <div class="scene-container">
+            <div class="spiral-inner" id="spiral-inner" style="--quantity: 5;">
+                <!-- Proyecto 01 -->
+                <div class="spiral-card" style="--index: 0; --color-card: 142, 255, 113;">
+                    <div class="spiral-img">
+                        <h4>Yates JB</h4>
+                        <p>Gestión de Reservas Premium</p>
+                    </div>
+                </div>
+                <!-- Proyecto 02 -->
+                <div class="spiral-card" style="--index: 1; --color-card: 23, 238, 250;">
+                    <div class="spiral-img">
+                        <h4>Maison Bernel</h4>
+                        <p>Boutique Digital de Lujo</p>
+                    </div>
+                </div>
+                <!-- Proyecto 03 -->
+                <div class="spiral-card" style="--index: 2; --color-card: 130, 234, 150;">
+                    <div class="spiral-img">
+                        <h4>Puerta Dubai</h4>
+                        <p>Hospitalidad & Real Estate</p>
+                    </div>
+                </div>
+                <!-- Proyecto 04 -->
+                <div class="spiral-card" style="--index: 3; --color-card: 255, 115, 81;">
+                    <div class="spiral-img">
+                        <h4>Super Dragon</h4>
+                        <p>Sistemas E-commerce</p>
+                    </div>
+                </div>
+                <!-- Proyecto 05 -->
+                <div class="spiral-card" style="--index: 4; --color-card: 142, 255, 113;">
+                    <div class="spiral-img">
+                        <h4>Odoo Auto</h4>
+                        <p>Automatización de Procesos</p>
+                    </div>
+                </div>
+            </div>
+            <div id="project-info">
+                <span class="info-tag">CASO_DE_ESTUDIO</span>
+                <h2 id="info-title">YATES JB</h2>
+                <p id="info-desc">Arquitectura para la gestión de flota y reservas de lujo en tiempo real con automatización de calendarios.</p>
+                <div class="h-px w-24 bg-primary/30"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Asymmetric Grid -->
+    <section class="py-24 px-6 md:px-12 lg:px-24" id="portafolio">
+        <div class="mb-16 flex justify-between items-end">
+            <div>
+                <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase block mb-2">002 // CASOS_DE_ESTUDIO</span>
+                <h2 class="text-4xl font-black tracking-tighter uppercase">Arquitecturas Desplegadas</h2>
+            </div>
+            <div class="hidden md:block font-label text-on-surface-variant text-sm">PROYECTOS_ACTUALIZADOS_2024</div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <!-- Case Study 1: Yates JB -->
+            <div class="md:col-span-8 group relative overflow-hidden bg-surface-container-low aspect-video md:aspect-auto md:h-[600px]">
+                <img alt="Yates JB" class="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" src="https://images.unsplash.com/photo-1567891295326-0e1ce8e6592d?q=80&w=2070&auto=format&fit=crop"/>
+                <div class="absolute inset-0 p-12 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent">
+                    <div class="max-w-md">
+                        <span class="font-label text-primary mb-4 block tracking-tighter">CASE_ID: YATES_JB_RESERVES</span>
+                        <h3 class="text-3xl font-black uppercase mb-6 leading-none">Gestión de Flota & Reservas Premium</h3>
+                        <div class="grid grid-cols-3 gap-4 border-t border-primary/30 pt-6">
+                            <div>
+                                <span class="font-label text-[0.6rem] text-on-surface-variant block uppercase">Desafío</span>
+                                <span class="text-sm font-bold uppercase">Gestión Manual</span>
+                            </div>
+                            <div>
+                                <span class="font-label text-[0.6rem] text-on-surface-variant block uppercase">Arquitectura</span>
+                                <span class="text-sm font-bold uppercase">Real-Time Sync</span>
+                            </div>
+                            <div>
+                                <span class="font-label text-[0.6rem] text-primary block uppercase">Resultado</span>
+                                <span class="text-sm font-bold uppercase">+300% RESERVAS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Case Study 2: Maison Bernel -->
+            <div class="md:col-span-4 bg-surface-container-high p-8 flex flex-col justify-between">
+                <div>
+                    <span class="font-label text-primary mb-4 block tracking-tighter">CASE_ID: MAISON_BERNEL</span>
+                    <h3 class="text-2xl font-black uppercase mb-6 leading-none">Boutique Digital de Alta Costura</h3>
+                    <p class="text-on-surface-variant text-sm mb-8 leading-relaxed">E-commerce de lujo con enfoque en storytelling visual y una experiencia de usuario extremadamente fluida.</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="border-l-2 border-primary pl-4">
+                        <span class="font-label text-[0.65rem] text-on-surface-variant uppercase">Stack</span>
+                        <p class="font-bold text-sm uppercase">Next.js + Framer Motion</p>
+                    </div>
+                    <div class="border-l-2 border-primary pl-4">
+                        <span class="font-label text-[0.65rem] text-primary uppercase">Métrica</span>
+                        <p class="font-bold text-sm uppercase">99 Lighthouse Score</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Case Study 3: Odoo Automation -->
+            <div class="md:col-span-4 machined-gradient p-8 flex flex-col justify-between border-l border-primary/20">
+                <div>
+                    <span class="font-label text-primary mb-4 block tracking-tighter">CASE_ID: ODOO_AUTO</span>
+                    <h3 class="text-2xl font-black uppercase mb-6 leading-none">Automatización de Operaciones</h3>
+                    <p class="text-on-surface-variant text-sm mb-8 leading-relaxed">Integración de sistemas ERP con canales de venta en tiempo real para eliminar la duplicidad de datos.</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="border-l-2 border-primary pl-4">
+                        <span class="font-label text-[0.65rem] text-on-surface-variant uppercase">Estrategia</span>
+                        <p class="font-bold text-sm uppercase">Python Automation Bridge</p>
+                    </div>
+                    <div class="border-l-2 border-primary pl-4">
+                        <span class="font-label text-[0.65rem] text-primary uppercase">Eficiencia</span>
+                        <p class="font-bold text-sm uppercase">-80% Tarea Manual</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Case Study 4: Lead Generation -->
+            <div class="md:col-span-8 group relative overflow-hidden bg-surface-container-low h-[400px]">
+                <img alt="Lead Gen System" class="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026&auto=format&fit=crop"/>
+                <div class="absolute inset-0 p-12 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent">
+                    <div class="max-w-md">
+                        <span class="font-label text-primary mb-2 block">SISTEMA: ESCALABILIDAD_GLOBAL</span>
+                        <h3 class="text-3xl font-black uppercase">Infraestructura para el Crecimiento Exponencial</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Logic -->
+    <section class="py-32 px-6 md:px-12 lg:px-24 bg-surface-container-highest flex items-center justify-center text-center" id="filosofia">
+        <div class="max-w-4xl">
+            <span class="font-label text-primary text-[0.75rem] tracking-[0.5em] uppercase block mb-8">LÓGICA_NÚCLEO_DEL_SISTEMA</span>
+            <blockquote class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.85] terminal-glow italic">
+                "Si no se puede automatizar, no es escalable."
+            </blockquote>
+            <div class="mt-12 h-1 w-24 bg-primary mx-auto"></div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-24 px-6 md:px-12 lg:px-24 bg-surface" id="precios">
+        <div class="mb-16 text-center">
+            <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase block mb-2">003 // ARQUITECTURA_DE_COSTOS</span>
+            <h2 class="text-4xl font-black tracking-tighter uppercase">Planes & Inversión</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <!-- Starter Plan -->
+            <div class="pricing-card bg-surface-container-low p-8 border border-outline-variant/10 flex flex-col h-full hover:border-primary/50 transition-colors duration-300">
+                <div class="mb-8">
+                    <div class="flex items-baseline gap-2 mb-4">
+                        <span class="text-4xl font-black text-primary">$99</span>
+                        <span class="font-label text-xs text-on-surface-variant uppercase tracking-widest">PAGO_ÚNICO</span>
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4 font-headline">Starter Pack</h3>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">Perfecto para pequeños lanzamientos y sitios personales que necesitan una presencia online rápida.</p>
+                </div>
+                <div class="h-px bg-outline-variant/10 w-full mb-8"></div>
+                <ul class="space-y-4 mb-10 flex-grow">
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Sitio web de una página
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Diseño y estructura visual a medida
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Experiencia responsiva Mobile-first
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Entrega rápida (< 7 días)
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        SEO básico integrado
+                    </li>
+                </ul>
+                <button class="w-full border border-outline-variant py-4 font-bold uppercase hover:bg-surface-container-high transition-all">Seleccionar Pack</button>
+            </div>
+
+            <!-- Growth Plan (Highlighted) -->
+            <div class="pricing-card machined-gradient p-10 border-2 border-primary flex flex-col h-full relative overflow-hidden group shadow-[0_0_50px_-12px_rgba(142,255,113,0.15)]">
+                <div class="absolute top-0 right-0 bg-primary text-on-primary px-4 py-1 text-[0.6rem] font-bold uppercase tracking-tighter">RECOMENDADO</div>
+                <div class="mb-8">
+                    <div class="flex items-baseline gap-2 mb-4">
+                        <span class="text-5xl font-black text-primary">$299</span>
+                        <span class="font-label text-xs text-on-surface-variant uppercase tracking-widest">PAGO_ÚNICO</span>
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4 font-headline">Growth Pack</h3>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">Diseñado para marcas en crecimiento que necesitan flexibilidad y soporte CMS avanzado.</p>
+                </div>
+                <div class="h-px bg-primary/20 w-full mb-8"></div>
+                <ul class="space-y-4 mb-10 flex-grow">
+                    <li class="flex items-center gap-3 text-sm font-bold">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Hasta 5 páginas
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Secciones administrables por CMS
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Estructura basada en componentes
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Diseño de movimiento y transiciones
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Interfaces enfocadas en UX estricto
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Guía de estilos (Design System)
+                    </li>
+                </ul>
+                <button class="w-full bg-primary text-on-primary py-4 font-bold uppercase hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-primary/20">Iniciar Ahora</button>
+            </div>
+
+            <!-- Full Scope Plan -->
+            <div class="pricing-card bg-surface-container-low p-8 border border-outline-variant/10 flex flex-col h-full hover:border-primary/50 transition-colors duration-300">
+                <div class="mb-8">
+                    <div class="flex items-baseline gap-2 mb-4">
+                        <span class="text-4xl font-black text-primary">$899</span>
+                        <span class="font-label text-xs text-on-surface-variant uppercase tracking-widest">PAGO_ÚNICO</span>
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4 font-headline">Full Scope</h3>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">Ideal para equipos o sistemas empresariales que necesitan estructura compleja y ejecución de alto nivel.</p>
+                </div>
+                <div class="h-px bg-outline-variant/10 w-full mb-8"></div>
+                <ul class="space-y-4 mb-10 flex-grow">
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        10+ páginas con panel CMS
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Estrategia de diseño avanzada
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Soporte completo de sistema de marca
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Dirección de animaciones fluidas
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Componentes construidos a la medida
+                    </li>
+                    <li class="flex items-center gap-3 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+                        Soporte y QA post-lanzamiento
+                    </li>
+                </ul>
+                <button class="w-full border border-outline-variant py-4 font-bold uppercase hover:bg-surface-container-high transition-all">Contactar Consultoría</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Gen Form -->
+    <section class="py-24 px-6 md:px-12 lg:px-24 grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div>
+            <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase block mb-2">003 // INICIALIZAR_CONEXIÓN</span>
+            <h2 class="text-5xl font-black tracking-tighter uppercase mb-6 leading-none">Construyamos tu <span class="text-primary">Estructura</span></h2>
+            <p class="text-xl text-on-surface-variant max-w-md mb-10 leading-relaxed">
+                ¿Listo para eliminar la entropía operativa? Proporciona los parámetros del sistema a continuación para iniciar el análisis arquitectónico.
+            </p>
+            <div class="space-y-4">
+                <div class="flex items-center gap-4 text-on-surface-variant">
+                    <span class="material-symbols-outlined text-primary">location_on</span>
+                    <span class="font-label uppercase text-sm tracking-widest">Base: Maracaibo, Venezuela (Consultoría Global)</span>
+                </div>
+                <div class="flex items-center gap-4 text-on-surface-variant">
+                    <span class="material-symbols-outlined text-primary">terminal</span>
+                    <span class="font-label uppercase text-sm tracking-widest">Señal: hola@jorgericardo.tech</span>
+                </div>
+            </div>
+        </div>
+        <div class="bg-surface-container-low p-8 md:p-12 border-l border-primary/20">
+            <form class="space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="font-label text-[0.7rem] uppercase tracking-widest text-on-surface-variant">IDENTIFICADOR</label>
+                        <input class="w-full bg-surface-container-highest border-none focus:ring-0 focus:border-b-2 focus:border-primary text-on-surface p-4 font-label uppercase" placeholder="NOMBRE_COMPLETO" type="text"/>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="font-label text-[0.7rem] uppercase tracking-widest text-on-surface-variant">PROTOCOLO_CONTACTO</label>
+                        <input class="w-full bg-surface-container-highest border-none focus:ring-0 focus:border-b-2 focus:border-primary text-on-surface p-4 font-label uppercase" placeholder="CORREO_ELECTRÓNICO" type="email"/>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="font-label text-[0.7rem] uppercase tracking-widest text-on-surface-variant">TIPO_DE_DESAFÍO</label>
+                    <select class="w-full bg-surface-container-highest border-none focus:ring-0 focus:border-b-2 focus:border-primary text-on-surface p-4 font-label uppercase appearance-none">
+                        <option>Problemas de Escalabilidad</option>
+                        <option>Automatización de Procesos</option>
+                        <option>Presencia Digital Premium</option>
+                        <option>Migración de Sistemas</option>
+                    </select>
+                </div>
+                <div class="space-y-2">
+                    <label class="font-label text-[0.7rem] uppercase tracking-widest text-on-surface-variant">ASIGNACIÓN_DE_RECURSOS (INVERSIÓN)</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button class="border border-outline-variant py-3 font-label text-xs uppercase hover:bg-primary hover:text-on-primary transition-all" type="button">$2k - $5k</button>
+                        <button class="border border-outline-variant py-3 font-label text-xs uppercase hover:bg-primary hover:text-on-primary transition-all" type="button">$5k - $15k</button>
+                        <button class="border border-primary py-3 font-label text-xs uppercase bg-primary/10 text-primary" type="button">$15k+</button>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="font-label text-[0.7rem] uppercase tracking-widest text-on-surface-variant">DATOS_DE_TRANSMISIÓN</label>
+                    <textarea class="w-full bg-surface-container-highest border-none focus:ring-0 focus:border-b-2 focus:border-primary text-on-surface p-4 font-label uppercase resize-none" placeholder="DESCRIBE_EL_ALCANCE_DEL_PROYECTO" rows="4"></textarea>
+                </div>
+                <button class="w-full bg-primary text-on-primary py-5 text-xl font-black uppercase tracking-tighter hover:brightness-110 active:scale-[0.98] transition-all">
+                    INICIAR_CONEXIÓN
+                </button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-[#0e0e0f] w-full border-t border-[#1f1f21] mt-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 w-full max-w-7xl mx-auto">
+        <div class="text-sm font-bold text-[#8eff71] font-['Space_Grotesk'] uppercase mb-8 md:mb-0">
+            © 2024 JORGE RICARDO | ARCHITECT_AUTOMATION.
+        </div>
+        <div class="flex gap-10">
+            <a class="font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest text-zinc-600 hover:text-[#8eff71] transition-colors cursor-crosshair" href="#">TERMINAL_ACCESS</a>
+            <a class="font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest text-zinc-600 hover:text-[#8eff71] transition-colors cursor-crosshair" href="#">GITHUB</a>
+            <a class="font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest text-zinc-600 hover:text-[#8eff71] transition-colors cursor-crosshair" href="#">LINKEDIN</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animación Gravity Shatter
+    const shatterTextContainer = document.getElementById('shatter-text');
+    if (shatterTextContainer) {
+        const textToShatter = "Sistemas que trabajan por ti";
+        textToShatter.split("").forEach((char) => {
+            const span = document.createElement("span");
+            span.innerText = char;
+            span.style.display = "inline-block";
+            span.style.whiteSpace = "pre";
+            span.className = "shatter-letter";
+            shatterTextContainer.appendChild(span);
+        });
+
+        gsap.utils.toArray('.shatter-letter').forEach((letter, index) => {
+            const seed = index * 123.456;
+            // Aumentando los rangos para una caída más extrema
+            const randomY = 800 + (seed % 1200);     // Caída profunda de 800px a 2000px
+            const randomRot = -360 + (seed % 720);   // Giros completos
+            const randomX = -500 + (seed % 1000);    // Mayor esparcimiento horizontal y caótico
+            const randomScale = 0.5 + ((seed % 100) / 100); // Variación de escala al caer
+
+            gsap.to(letter, {
+                y: randomY,
+                x: randomX,
+                rotationZ: randomRot,
+                scale: randomScale,
+                opacity: 0,
+                ease: "power2.inOut", // Curva mucho más suave para distinguir la caída
+                scrollTrigger: {
+                    trigger: "#gravity-shatter",
+                    start: `top+=${(index % 8) * 4}% top`, // El quiebre empieza gradualmente
+                    end: "bottom top", // Toma completamente toda la sección de scroll
+                    scrub: 1.5 // Reingresamos la inercia para que se deslice elegantemente
+                }
+            });
+        });
+
+        // Animación dinámica extrema de las imágenes (Parallax 3D fuerte y suave)
+        gsap.fromTo('.shatter-img-1', 
+            { yPercent: 0, xPercent: 0, rotationZ: -5, rotationY: 0, scale: 1, opacity: 1 },
+            { yPercent: -200, xPercent: -100, rotationZ: -60, rotationY: 45, scale: 0.3, opacity: 0, ease: "power1.inOut", scrollTrigger: { trigger: "#gravity-shatter", start: "top top", end: "bottom top", scrub: 1.5 } }
+        );
+        gsap.fromTo('.shatter-img-2', 
+            { yPercent: 10, xPercent: 0, rotationZ: 5, rotationX: 0, scale: 0.9, opacity: 1 },
+            { yPercent: -250, xPercent: 100, rotationZ: 85, rotationX: -60, scale: 2.2, opacity: 0, ease: "power1.inOut", scrollTrigger: { trigger: "#gravity-shatter", start: "top top", end: "bottom top", scrub: 1.5 } }
+        );
+        gsap.fromTo('.shatter-img-3', 
+            { yPercent: 50, xPercent: 0, rotationZ: -10, rotationY: 0, scale: 1, opacity: 1 },
+            { yPercent: -300, xPercent: -50, rotationZ: 45, rotationY: -80, scale: 0.1, opacity: 0, ease: "power1.inOut", scrollTrigger: { trigger: "#gravity-shatter", start: "top top", end: "bottom top", scrub: 1.5 } }
+        );
+    }
+
+    const inner = document.getElementById('spiral-inner');
+    const cards = gsap.utils.toArray('.spiral-card');
+    const infoPanel = document.getElementById('project-info');
+    const infoTitle = document.getElementById('info-title');
+    const infoDesc = document.getElementById('info-desc');
+    const totalCards = cards.length;
+    const yStep = 450; 
+
+    // Datos de los proyectos
+    const projectData = [
+        {
+            title: "Yates JB",
+            desc: "Sistema integral de reservas premium y gestión de activos para flotas de lujo en el Caribe y Dubai."
+        },
+        {
+            title: "Maison Bernel",
+            desc: "Boutique digital de alta gama con narrativa visual inmersiva y optimización SEO crítica."
+        },
+        {
+            title: "Puerta Dubai",
+            desc: "Plataforma de servicios de lujo y real estate con integración de APIs de terceros y alta concurrencia."
+        },
+        {
+            title: "Super Dragon",
+            desc: "E-commerce escalable con arquitectura modular diseñado para maximizar la velocidad de carga."
+        },
+        {
+            title: "Odoo Auto",
+            desc: "Implementación de puentes inteligentes entre Odoo ERP y plataformas web para automatización total."
+        }
+    ];
+
+    let lastIndex = -1;
+
+    // Animación de la Galería Espiral con Pinning
+    gsap.to(inner, {
+        rotationY: -(360 / totalCards) * (totalCards - 1), 
+        y: -(totalCards - 1) * yStep, 
+        ease: "none",
+        scrollTrigger: {
+            trigger: "#proyectos-3d",
+            start: "top top",
+            end: "+=4000",
+            scrub: 1,
+            pin: true,
+            snap: {
+                snapTo: 1 / (totalCards - 1),
+                duration: 0.4,
+                delay: 0.05,
+                ease: "power2.inOut"
+            },
+            onUpdate: (self) => {
+                const progress = self.progress;
+                const activeIndex = Math.round(progress * (totalCards - 1));
+                
+                if (activeIndex !== lastIndex) {
+                    lastIndex = activeIndex;
+                    
+                    // Actualizar resaltado de tarjetas
+                    cards.forEach((card, i) => {
+                        if (i === activeIndex) {
+                            card.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                        }
+                    });
+
+                    // Actualizar panel de información con fade
+                    infoPanel.classList.remove('visible');
+                    setTimeout(() => {
+                        infoTitle.innerText = projectData[activeIndex].title;
+                        infoDesc.innerText = projectData[activeIndex].desc;
+                        infoPanel.classList.add('visible');
+                    }, 300);
+                }
+            }
+        }
+    });
+
+    // Mostrar el primer panel al cargar
+    window.addEventListener('load', () => {
+        infoPanel.classList.add('visible');
+    });
+
+    // Animación de entrada para los Packs de Precios
+    gsap.from(".pricing-card", {
+        y: 60,
+        opacity: 0,
+        scale: 0.9,
+        stagger: 0.2,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+            trigger: "#precios",
+            start: "top 80%",
+            toggleActions: "play none none none"
+        }
+    });
+</script>
+</body>
+</html>

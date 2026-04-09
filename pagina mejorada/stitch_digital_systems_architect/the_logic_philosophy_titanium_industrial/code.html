@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>THE LOGIC | ARCHITECT_CORE_V1</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;family=Space+Grotesk:wght@300;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#0d6100",
+                    "secondary-container": "#006d2f",
+                    "tertiary": "#88f6ff",
+                    "primary-dim": "#2be800",
+                    "surface-container": "#19191b",
+                    "tertiary-dim": "#00deea",
+                    "secondary": "#90f9a3",
+                    "on-secondary-fixed": "#004a1e",
+                    "on-background": "#ffffff",
+                    "inverse-surface": "#fcf8f9",
+                    "on-tertiary": "#005d62",
+                    "background": "#0e0e0f",
+                    "primary-fixed-dim": "#2be800",
+                    "surface-tint": "#8eff71",
+                    "primary": "#8eff71",
+                    "on-surface-variant": "#acaaab",
+                    "surface": "#0e0e0f",
+                    "error-container": "#b92902",
+                    "on-primary-fixed-variant": "#0d6200",
+                    "on-secondary-fixed-variant": "#006a2e",
+                    "surface-bright": "#2c2c2d",
+                    "surface-variant": "#262627",
+                    "tertiary-container": "#17eefa",
+                    "surface-container-highest": "#262627",
+                    "secondary-dim": "#82ea96",
+                    "on-tertiary-fixed": "#003f43",
+                    "surface-container-low": "#131314",
+                    "surface-dim": "#0e0e0f",
+                    "secondary-fixed-dim": "#82ea96",
+                    "on-error-container": "#ffd2c8",
+                    "surface-container-high": "#1f1f21",
+                    "on-tertiary-container": "#005458",
+                    "tertiary-fixed": "#17eefa",
+                    "on-tertiary-fixed-variant": "#005e63",
+                    "on-surface": "#ffffff",
+                    "on-primary-fixed": "#064200",
+                    "on-primary-container": "#0b5800",
+                    "inverse-on-surface": "#555556",
+                    "error": "#ff7351",
+                    "secondary-fixed": "#90f9a3",
+                    "primary-fixed": "#2ff801",
+                    "inverse-primary": "#106f00",
+                    "tertiary-fixed-dim": "#00deea",
+                    "outline": "#767576",
+                    "on-secondary-container": "#e4ffe2",
+                    "primary-container": "#2ff801",
+                    "error-dim": "#d53d18",
+                    "on-error": "#450900",
+                    "surface-container-lowest": "#000000",
+                    "outline-variant": "#484849",
+                    "on-secondary": "#005f28"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0e0e0f;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .text-neon { color: #8eff71; }
+        .bg-neon { background-color: #8eff71; }
+        .grid-bg {
+            background-image: linear-gradient(#131314 1px, transparent 1px), linear-gradient(90deg, #131314 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .machined-edge {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#0e0e0f]">
+<div class="text-xl font-black text-[#8eff71] tracking-tighter font-['Inter'] uppercase">
+            ARCHITECT_CORE_V1
+        </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-gray-500 uppercase text-xs font-bold font-['Inter'] hover:text-[#8eff71] transition-colors duration-150" href="#">SYSTEM</a>
+<a class="text-gray-500 uppercase text-xs font-bold font-['Inter'] hover:text-[#8eff71] transition-colors duration-150" href="#">NETWORK</a>
+<a class="text-gray-500 uppercase text-xs font-bold font-['Inter'] hover:text-[#8eff71] transition-colors duration-150" href="#">LOGS</a>
+</div>
+<div class="flex items-center gap-4 text-[#8eff71]">
+<span class="material-symbols-outlined cursor-pointer hover:opacity-80 transition-opacity">settings_input_component</span>
+<span class="material-symbols-outlined cursor-pointer hover:opacity-80 transition-opacity">terminal</span>
+<span class="material-symbols-outlined cursor-pointer hover:opacity-80 transition-opacity">sensors</span>
+</div>
+</nav>
+<!-- SideNavBar (Suppressed on deep content screens but active for this dashboard-level philosophy page) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col bg-[#131314] z-40 hidden lg:flex">
+<div class="p-6 border-b border-outline-variant/10">
+<div class="text-[#8eff71] font-bold font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest">MODULE_NAV</div>
+<div class="text-gray-500 text-[10px] font-['Space_Grotesk']">V.2.0.4-STABLE</div>
+</div>
+<nav class="flex-1 py-4">
+<a class="flex items-center gap-3 text-gray-400 px-4 py-3 font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                DASHBOARD
+            </a>
+<a class="flex items-center gap-3 text-[#8eff71] bg-[#262627] border-l-4 border-[#8eff71] px-4 py-3 font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+                THE LOGIC
+            </a>
+<a class="flex items-center gap-3 text-gray-400 px-4 py-3 font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_hdmi">settings_input_hdmi</span>
+                INFRASTRUCTURE
+            </a>
+<a class="flex items-center gap-3 text-gray-400 px-4 py-3 font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="encrypted">encrypted</span>
+                SECURITY
+            </a>
+<a class="flex items-center gap-3 text-gray-400 px-4 py-3 font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+                DIAGNOSTICS
+            </a>
+</nav>
+<div class="p-4 mt-auto">
+<a class="flex items-center gap-3 text-gray-400 px-4 py-3 font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="power_settings_new">power_settings_new</span>
+                LOGOUT
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 pt-16 min-h-screen grid-bg">
+<!-- Hero Section: The Manifesto -->
+<section class="relative px-6 py-24 md:px-12 lg:px-20 border-b border-outline-variant/10">
+<div class="max-w-6xl mx-auto">
+<div class="flex items-center gap-4 mb-8">
+<span class="h-[2px] w-12 bg-primary"></span>
+<span class="font-['Space_Grotesk'] text-primary tracking-widest text-xs uppercase">Philosophy / Logic Gate 01</span>
+</div>
+<h1 class="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-[0.9] mb-12">
+                    If it can't be <span class="text-primary">automated</span>,<br/> it's not <span class="text-primary-container">scalable</span>.
+                </h1>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-20">
+<div class="space-y-6">
+<p class="text-xl text-on-surface-variant font-light leading-relaxed">
+                            In the industrial digital landscape, manual effort is a structural failure. We view complexity as an enemy that must be codified, contained, and eventually eliminated through algorithmic precision.
+                        </p>
+<button class="bg-primary text-on-primary px-8 py-4 font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all flex items-center gap-4">
+                            READ THE MANIFESTO
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-transparent opacity-20 group-hover:opacity-40 transition-opacity"></div>
+<div class="relative bg-surface-container-high p-8 border border-outline-variant/20">
+<div class="font-['Space_Grotesk'] text-primary mb-4 text-xs">Axiom // 001</div>
+<h3 class="text-2xl font-bold uppercase mb-2">Structural Integrity</h3>
+<p class="text-on-surface-variant text-sm font-['Space_Grotesk'] uppercase tracking-tight">
+                                Systems must be built to withstand the pressure of infinite scale. If a single point of failure exists, the entire architecture is a liability.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- The Technical Axioms: Bento Grid Layout -->
+<section class="px-6 py-24 md:px-12 lg:px-20 bg-surface-container-low">
+<div class="max-w-6xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1: Zero-Noise Principle -->
+<div class="md:col-span-2 bg-surface p-10 border-l-4 border-primary flex flex-col justify-between min-h-[400px]">
+<div>
+<div class="text-primary text-[10px] font-['Space_Grotesk'] tracking-[0.3em] mb-8">PRINCIPLE_02</div>
+<h2 class="text-4xl font-black uppercase tracking-tighter mb-4 leading-none">The Zero-Noise<br/>Principle.</h2>
+<p class="text-on-surface-variant max-w-md">Data without context is clutter. Signals must be purified. We design interfaces that suppress the trivial to amplify the critical.</p>
+</div>
+<div class="flex items-end justify-between mt-12">
+<div class="w-full h-32 bg-surface-container-highest relative overflow-hidden">
+<!-- Technical Waveform Visualization -->
+<div class="absolute inset-0 flex items-center justify-around px-4">
+<div class="w-1 bg-primary h-12 opacity-40"></div>
+<div class="w-1 bg-primary h-8 opacity-40"></div>
+<div class="w-1 bg-primary h-20 opacity-100"></div>
+<div class="w-1 bg-primary h-14 opacity-40"></div>
+<div class="w-1 bg-primary h-24 opacity-80"></div>
+<div class="w-1 bg-primary h-6 opacity-40"></div>
+<div class="w-1 bg-primary h-18 opacity-40"></div>
+<div class="w-1 bg-primary h-32 opacity-100"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Code as an Asset -->
+<div class="bg-primary p-10 flex flex-col justify-between min-h-[400px] text-on-primary">
+<div>
+<div class="text-on-primary-fixed text-[10px] font-['Space_Grotesk'] tracking-[0.3em] mb-8">PRINCIPLE_03</div>
+<h2 class="text-4xl font-black uppercase tracking-tighter mb-4 leading-none">Code as<br/>an Asset.</h2>
+<p class="font-medium opacity-80">Software is not a service; it is a permanent industrial asset. It should be forged with the same rigor as steel.</p>
+</div>
+<span class="material-symbols-outlined text-6xl opacity-20" style="font-variation-settings: 'FILL' 1;">architecture</span>
+</div>
+<!-- Card 3: Engineering Schematics Visual -->
+<div class="md:col-span-1 bg-surface-container-highest overflow-hidden h-[300px] relative group">
+<img alt="Engineering Schematic" class="w-full h-full object-cover opacity-30 grayscale group-hover:scale-105 transition-transform duration-700" data-alt="Technical macro view of a circuit board with neon green light traces and sharp industrial components" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEi1kG9MD2aeOtrTBWkx_Z1vB3FlAf6IXnRZdtQe37UM7zO4HhOUvyS22SDofProdFvub-UyUqzjbqdazGZXZF4wOIsRPbHNvkVm13AqcBcm6AfKcr030eC_0rhj46FLPppZfB8mZLadjSTJ_rCMa3u0CHGPZgNyiDsYH8myJkL29KrxfxGvLJEryhmNvFeO8r8XYMzcT0HN3BLvR_rjLLliBwUvDItb_mXWA5Mx0Jfx6bPgceTTjo0_8k35Ur_rxTVnNMa4De3KM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+<div class="absolute bottom-6 left-6">
+<span class="font-['Space_Grotesk'] text-xs text-primary uppercase">Hard-Level Architecture</span>
+</div>
+</div>
+<!-- Card 4: Detailed Insight -->
+<div class="md:col-span-2 bg-surface-container p-10 border border-outline-variant/10 relative">
+<div class="flex flex-col h-full">
+<div class="flex justify-between items-start mb-8">
+<h3 class="text-2xl font-bold uppercase tracking-tight">Kinetic Monolith Strategy</h3>
+<span class="font-['Space_Grotesk'] text-gray-500 text-xs">V-004-99</span>
+</div>
+<div class="grid grid-cols-2 gap-8 flex-1">
+<div class="space-y-2">
+<div class="text-primary text-sm font-['Space_Grotesk']">STABILITY</div>
+<div class="text-3xl font-black">99.999%</div>
+<p class="text-xs text-gray-500 uppercase">Uptime protocol default</p>
+</div>
+<div class="space-y-2">
+<div class="text-tertiary text-sm font-['Space_Grotesk']">LATENCY</div>
+<div class="text-3xl font-black">12MS</div>
+<p class="text-xs text-gray-500 uppercase">Max permissible drift</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quote Section -->
+<section class="py-32 px-6 bg-surface">
+<div class="max-w-4xl mx-auto text-center">
+<span class="material-symbols-outlined text-primary text-5xl mb-8">format_quote</span>
+<blockquote class="text-3xl md:text-5xl font-['Inter'] font-black uppercase tracking-tighter italic leading-tight">
+                    "Precision is not just a requirement; it is the fundamental language of the universe we are building."
+                </blockquote>
+<div class="mt-8 font-['Space_Grotesk'] text-gray-500 tracking-widest uppercase text-sm">
+                    — ARCHITECT_SYSTEMS // CORE_PROTOCOL
+                </div>
+</div>
+</section>
+<!-- Schematic Background Visual Divider -->
+<div class="h-64 w-full relative overflow-hidden">
+<div class="absolute inset-0 grid-bg opacity-20"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-surface via-transparent to-surface"></div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 w-full px-6 py-2 flex flex-col md:flex-row justify-between items-center z-50 bg-[#131314] text-[#8eff71] font-['Space_Grotesk'] text-[10px] tracking-widest uppercase">
+<div class="text-gray-500">
+            © 2024 ARCHITECT_SYSTEMS | LATENCY: 24MS | ENCRYPTION: AES-256-GCM
+        </div>
+<div class="flex gap-6 mt-2 md:mt-0">
+<a class="text-gray-600 hover:text-white transition-colors cursor-crosshair" href="#">PRIVACY_PROTOCOL</a>
+<a class="text-gray-600 hover:text-white transition-colors cursor-crosshair" href="#">SYSTEM_STATUS</a>
+<a class="text-gray-600 hover:text-white transition-colors cursor-crosshair" href="#">SOURCE_CODE</a>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ARCHITECT_CORE_V1 // SERVICES_STACK</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;family=Space+Grotesk:wght@300;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#0d6100",
+                    "secondary-container": "#006d2f",
+                    "tertiary": "#88f6ff",
+                    "primary-dim": "#2be800",
+                    "surface-container": "#19191b",
+                    "tertiary-dim": "#00deea",
+                    "secondary": "#90f9a3",
+                    "on-secondary-fixed": "#004a1e",
+                    "on-background": "#ffffff",
+                    "inverse-surface": "#fcf8f9",
+                    "on-tertiary": "#005d62",
+                    "background": "#0e0e0f",
+                    "primary-fixed-dim": "#2be800",
+                    "surface-tint": "#8eff71",
+                    "primary": "#8eff71",
+                    "on-surface-variant": "#acaaab",
+                    "surface": "#0e0e0f",
+                    "error-container": "#b92902",
+                    "on-primary-fixed-variant": "#0d6200",
+                    "on-secondary-fixed-variant": "#006a2e",
+                    "surface-bright": "#2c2c2d",
+                    "surface-variant": "#262627",
+                    "tertiary-container": "#17eefa",
+                    "surface-container-highest": "#262627",
+                    "secondary-dim": "#82ea96",
+                    "on-tertiary-fixed": "#003f43",
+                    "surface-container-low": "#131314",
+                    "surface-dim": "#0e0e0f",
+                    "secondary-fixed-dim": "#82ea96",
+                    "on-error-container": "#ffd2c8",
+                    "surface-container-high": "#1f1f21",
+                    "on-tertiary-container": "#005458",
+                    "tertiary-fixed": "#17eefa",
+                    "on-tertiary-fixed-variant": "#005e63",
+                    "on-surface": "#ffffff",
+                    "on-primary-fixed": "#064200",
+                    "on-primary-container": "#0b5800",
+                    "inverse-on-surface": "#555556",
+                    "error": "#ff7351",
+                    "secondary-fixed": "#90f9a3",
+                    "primary-fixed": "#2ff801",
+                    "inverse-primary": "#106f00",
+                    "tertiary-fixed-dim": "#00deea",
+                    "outline": "#767576",
+                    "on-secondary-container": "#e4ffe2",
+                    "primary-container": "#2ff801",
+                    "error-dim": "#d53d18",
+                    "on-error": "#450900",
+                    "surface-container-lowest": "#000000",
+                    "outline-variant": "#484849",
+                    "on-secondary": "#005f28"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0e0e0f;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        .machined-gradient {
+            background: linear-gradient(45deg, #131314 0%, #1f1f21 100%);
+        }
+        .terminal-glow {
+            text-shadow: 0 0 10px rgba(142, 255, 113, 0.4);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary selection:text-on-primary">
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#0e0e0f]">
+<div class="text-xl font-black text-[#8eff71] tracking-tighter uppercase font-headline">ARCHITECT_CORE_V1</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-gray-500 uppercase text-xs font-bold font-headline hover:text-[#8eff71] transition-colors duration-150" href="#">SYSTEM</a>
+<a class="text-[#8eff71] border-b-2 border-[#8eff71] pb-1 uppercase text-xs font-bold font-headline" href="#">NETWORK</a>
+<a class="text-gray-500 uppercase text-xs font-bold font-headline hover:text-[#8eff71] transition-colors duration-150" href="#">LOGS</a>
+</nav>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-[#8eff71] cursor-pointer hover:opacity-80">settings_input_component</span>
+<span class="material-symbols-outlined text-[#8eff71] cursor-pointer hover:opacity-80">terminal</span>
+<span class="material-symbols-outlined text-[#8eff71] cursor-pointer hover:opacity-80">sensors</span>
+</div>
+</header>
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col bg-[#131314] z-40 hidden lg:flex">
+<div class="p-6 border-b border-outline-variant/10">
+<div class="text-[#8eff71] font-bold font-label tracking-widest text-[0.75rem]">MODULE_NAV</div>
+<div class="text-gray-500 font-label text-[10px] mt-1">V.2.0.4-STABLE</div>
+</div>
+<nav class="flex-1 mt-4">
+<div class="text-gray-400 px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest flex items-center gap-3 hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200">
+<span class="material-symbols-outlined text-sm">dashboard</span> DASHBOARD
+            </div>
+<div class="text-[#8eff71] bg-[#262627] border-l-4 border-[#8eff71] px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest flex items-center gap-3">
+<span class="material-symbols-outlined text-sm">precision_manufacturing</span> AUTOMATION
+            </div>
+<div class="text-gray-400 px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest flex items-center gap-3 hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200">
+<span class="material-symbols-outlined text-sm">settings_input_hdmi</span> INFRASTRUCTURE
+            </div>
+<div class="text-gray-400 px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest flex items-center gap-3 hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200">
+<span class="material-symbols-outlined text-sm">encrypted</span> SECURITY
+            </div>
+<div class="text-gray-400 px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest flex items-center gap-3 hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200">
+<span class="material-symbols-outlined text-sm">query_stats</span> DIAGNOSTICS
+            </div>
+</nav>
+<div class="mt-auto p-4 border-t border-outline-variant/10">
+<div class="text-gray-400 px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest flex items-center gap-3 hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-sm">power_settings_new</span> LOGOUT
+            </div>
+</div>
+</aside>
+<main class="lg:ml-64 pt-16 pb-20 min-h-screen px-6 md:px-12">
+<section class="py-12 border-b border-outline-variant/10">
+<div class="flex flex-col md:flex-row justify-between items-end gap-6">
+<div>
+<h1 class="text-5xl md:text-7xl font-black font-headline tracking-tighter terminal-glow mb-4">ENGINEERING_STACK</h1>
+<p class="font-label text-gray-400 tracking-widest uppercase text-sm max-w-xl">Clinical deployment of high-availability infrastructure, backend logic, and autonomous operational workflows.</p>
+</div>
+<div class="font-label text-primary text-right">
+<span class="block text-4xl font-bold">003</span>
+<span class="text-[10px] tracking-[0.3em]">ACTIVE_MODULES</span>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 md:grid-cols-3 gap-0 mt-12 mb-24 machined-gradient border border-outline-variant/20">
+<div class="p-8 border-r border-outline-variant/20">
+<div class="font-label text-primary text-[10px] tracking-widest mb-8 flex items-center gap-2">
+<span class="w-2 h-2 bg-primary"></span> 01_CLOUD_INFRA
+                </div>
+<h3 class="text-2xl font-black font-headline mb-4 uppercase">Scalable Ecosystems</h3>
+<p class="text-on-surface-variant text-sm font-body leading-relaxed mb-8">Architecting multi-region deployments on AWS, GCP, and Azure. Prioritizing 99.99% uptime through Infrastructure as Code (Terraform/Pulumi).</p>
+<div class="space-y-2">
+<div class="flex justify-between items-center bg-surface-container-highest p-3">
+<span class="font-label text-[10px] tracking-widest">AMAZON_WEB_SERVICES</span>
+<span class="material-symbols-outlined text-primary text-sm">cloud_done</span>
+</div>
+<div class="flex justify-between items-center bg-surface-container-highest p-3">
+<span class="font-label text-[10px] tracking-widest">GOOGLE_CLOUD_PLATFORM</span>
+<span class="material-symbols-outlined text-primary text-sm">cloud_done</span>
+</div>
+<div class="flex justify-between items-center bg-surface-container-highest p-3">
+<span class="font-label text-[10px] tracking-widest">MICROSOFT_AZURE</span>
+<span class="material-symbols-outlined text-primary text-sm">cloud_done</span>
+</div>
+</div>
+</div>
+<div class="p-8 border-r border-outline-variant/20">
+<div class="font-label text-primary text-[10px] tracking-widest mb-8 flex items-center gap-2">
+<span class="w-2 h-2 bg-primary"></span> 02_BACKEND_ENG
+                </div>
+<h3 class="text-2xl font-black font-headline mb-4 uppercase">High-Performance Core</h3>
+<p class="text-on-surface-variant text-sm font-body leading-relaxed mb-8">Memory-safe, concurrent systems engineered with Rust and Go. Low-latency APIs designed for massive horizontal scaling.</p>
+<div class="space-y-2">
+<div class="flex justify-between items-center bg-surface-container-highest p-3">
+<span class="font-label text-[10px] tracking-widest">RUST_CARGO</span>
+<span class="material-symbols-outlined text-primary text-sm">memory</span>
+</div>
+<div class="flex justify-between items-center bg-surface-container-highest p-3">
+<span class="font-label text-[10px] tracking-widest">GOLANG_RUNTIME</span>
+<span class="material-symbols-outlined text-primary text-sm">memory</span>
+</div>
+<div class="flex justify-between items-center bg-surface-container-highest p-3">
+<span class="font-label text-[10px] tracking-widest">POSTGRESQL_CORE</span>
+<span class="material-symbols-outlined text-primary text-sm">database</span>
+</div>
+</div>
+</div>
+<div class="p-8">
+<div class="font-label text-primary text-[10px] tracking-widest mb-8 flex items-center gap-2">
+<span class="w-2 h-2 bg-primary"></span> 03_AUTOMATION
+                </div>
+<h3 class="text-2xl font-black font-headline mb-4 uppercase">Autonomous Flows</h3>
+<p class="text-on-surface-variant text-sm font-body leading-relaxed mb-8">Eliminating manual overhead via Odoo ERP integration and complex Make.com visual programming. Industrial efficiency protocols.</p>
+<div class="space-y-2">
+<div class="flex justify-between items-center bg-surface-container-highest p-3">
+<span class="font-label text-[10px] tracking-widest">ODOO_ENTERPRISE</span>
+<span class="material-symbols-outlined text-primary text-sm">settings_suggest</span>
+</div>
+<div class="flex justify-between items-center bg-surface-container-highest p-3">
+<span class="font-label text-[10px] tracking-widest">MAKE_INTEGRATION</span>
+<span class="material-symbols-outlined text-primary text-sm">settings_suggest</span>
+</div>
+<div class="flex justify-between items-center bg-surface-container-highest p-3">
+<span class="font-label text-[10px] tracking-widest">ZAPIER_WEBHOOKS</span>
+<span class="material-symbols-outlined text-primary text-sm">settings_suggest</span>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-24">
+<div class="flex items-center gap-4 mb-12">
+<h2 class="text-3xl font-black font-headline tracking-tighter uppercase">Technological_Periodic_Table</h2>
+<div class="h-[1px] flex-1 bg-outline-variant/30"></div>
+<div class="font-label text-[10px] text-gray-500 uppercase tracking-[0.4em]">SYSTEM_INVENTORY_V1</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-1">
+<!-- Row 1: Infrastructure -->
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>01</span>
+<span>CLD</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Aw</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">AWS</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>02</span>
+<span>CLD</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Gc</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">GCP</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>03</span>
+<span>IAC</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Tf</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Terraform</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>04</span>
+<span>IAC</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Pu</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Pulumi</div>
+</div>
+<div class="aspect-square bg-transparent"></div>
+<div class="aspect-square bg-transparent"></div>
+<div class="aspect-square bg-transparent"></div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>05</span>
+<span>OPS</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">K8</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Kubernetes</div>
+</div>
+<!-- Row 2: Languages & DB -->
+<div class="aspect-square bg-surface-container-high border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-on-surface">
+<span>06</span>
+<span>LNG</span>
+</div>
+<div class="text-xl font-black text-primary group-hover:text-on-primary">Rs</div>
+<div class="font-label text-[8px] text-on-surface uppercase">Rust</div>
+</div>
+<div class="aspect-square bg-surface-container-high border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-on-surface">
+<span>07</span>
+<span>LNG</span>
+</div>
+<div class="text-xl font-black text-primary group-hover:text-on-primary">Go</div>
+<div class="font-label text-[8px] text-on-surface uppercase">Golang</div>
+</div>
+<div class="aspect-square bg-surface-container-high border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-on-surface">
+<span>08</span>
+<span>LNG</span>
+</div>
+<div class="text-xl font-black text-primary group-hover:text-on-primary">Ts</div>
+<div class="font-label text-[8px] text-on-surface uppercase">TypeScript</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>09</span>
+<span>DB</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Pg</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Postgres</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>10</span>
+<span>DB</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Rd</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Redis</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>11</span>
+<span>DB</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Mg</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">MongoDB</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>12</span>
+<span>SEC</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Va</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Vault</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>13</span>
+<span>SEC</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Ok</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Okta</div>
+</div>
+<!-- Row 3: Automation -->
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>14</span>
+<span>ERP</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Od</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Odoo</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>15</span>
+<span>FLO</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Mk</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Make.com</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>16</span>
+<span>FLO</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Zp</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Zapier</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>17</span>
+<span>COM</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Sl</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Slack</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>18</span>
+<span>MSG</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Kq</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Kafka</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>19</span>
+<span>MSG</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Rm</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">RabbitMQ</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>20</span>
+<span>AI</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">Oa</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">OpenAI</div>
+</div>
+<div class="aspect-square bg-surface-container-low border border-outline-variant/10 p-4 flex flex-col justify-between hover:bg-primary/10 transition-colors group cursor-crosshair">
+<div class="flex justify-between font-label text-[8px] text-gray-500">
+<span>21</span>
+<span>AI</span>
+</div>
+<div class="text-xl font-black group-hover:text-primary transition-colors">An</div>
+<div class="font-label text-[8px] text-gray-500 uppercase">Anthropic</div>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
+<div class="relative group overflow-hidden">
+<img alt="Technical Detail" class="w-full aspect-video object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-700" data-alt="close-up of industrial server racks with glowing green led indicators in a dark secure facility" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSF-0aHd4WUQRlS_OQ52-nh0Gs37XcxBnR1hzzCq_Q0mA4yKmke5AMpzRu6MefSIlZx54cy8FQNCRuqo-XhnX-r0Aqa_HwtyY8zmDSLXuxs-0X4b0B1AApHD-R4cZp9JG1ne8ksr2wXYhgAof7Dkwp8UT_agEFyLAmcQPb1eoqQ3Pmwrk3Qb3t0ad0j7RrBBXPGvpASCJVDDWOUttsd5b_JtW6ODlgXeb56RkOwyqQ8g5pGsSgsLyLYqt5Qh5-D299oY8fjXINf28"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6">
+<div class="font-label text-primary text-[10px] tracking-widest mb-2">OPERATIONAL_FOCUS</div>
+<h4 class="text-xl font-black font-headline uppercase">Ironclad Security</h4>
+</div>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="text-3xl font-black font-headline uppercase mb-6 tracking-tighter">Hardened Architectural Principles</h3>
+<ul class="space-y-6">
+<li class="flex gap-4">
+<span class="text-primary font-label font-bold">01</span>
+<div>
+<p class="font-headline font-bold uppercase text-sm mb-1">Zero Trust Framework</p>
+<p class="text-on-surface-variant text-sm">Every internal request is verified and encrypted at rest and in transit using AES-256-GCM.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<span class="text-primary font-label font-bold">02</span>
+<div>
+<p class="font-headline font-bold uppercase text-sm mb-1">Immutable Deployments</p>
+<p class="text-on-surface-variant text-sm">No live changes to production. All updates are triggered via CI/CD pipelines with strictly defined blue/green patterns.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<span class="text-primary font-label font-bold">03</span>
+<div>
+<p class="font-headline font-bold uppercase text-sm mb-1">Observability &amp; Drift Detection</p>
+<p class="text-on-surface-variant text-sm">Real-time monitoring for configuration drift and automated remediation via autonomous controller agents.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+</main>
+<footer class="fixed bottom-0 w-full px-6 py-2 flex justify-between items-center z-50 bg-[#131314]">
+<div class="font-label text-[10px] tracking-widest text-gray-500 uppercase">© 2024 ARCHITECT_SYSTEMS | LATENCY: 24MS | ENCRYPTION: AES-256-GCM</div>
+<div class="flex space-x-6">
+<a class="font-label text-[10px] tracking-widest text-gray-600 hover:text-white transition-colors uppercase" href="#">PRIVACY_PROTOCOL</a>
+<a class="font-label text-[10px] tracking-widest text-[#8eff71] hover:text-white transition-colors uppercase" href="#">SYSTEM_STATUS</a>
+<a class="font-label text-[10px] tracking-widest text-gray-600 hover:text-white transition-colors uppercase" href="#">SOURCE_CODE</a>
+</div>
+</footer>
+<!-- Mobile Navigation Overlay (Visible on mobile only) -->
+<div class="md:hidden fixed bottom-16 left-0 w-full bg-surface-container p-4 grid grid-cols-4 border-t border-outline-variant/10">
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label text-[8px]">DASH</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-500">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+<span class="font-label text-[8px]">AUTO</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-500">
+<span class="material-symbols-outlined">settings_input_hdmi</span>
+<span class="font-label text-[8px]">INFRA</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-500">
+<span class="material-symbols-outlined">sensors</span>
+<span class="font-label text-[8px]">LOGS</span>
+</div>
+</div>
+</body></html>

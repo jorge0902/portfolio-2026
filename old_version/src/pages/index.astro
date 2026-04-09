@@ -1,0 +1,127 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Features from '~/components/widgets/Features.astro';
+
+const metadata = {
+  title: 'Jorge Ricardo | Soluciones Tecnológicas',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+  <span id="inicio" class="scroll-mt-24"></span>
+  <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Ver Portafolio',
+        href: '#portafolio',
+        icon: 'tabler:briefcase',
+      },
+      { text: 'Conectar', href: '#contacto', icon: 'tabler:mail' },
+    ]}
+    image={{ src: '~/assets/images/hero-image.png', alt: 'AstroWind Hero Image' }}
+  >
+    <Fragment slot="title">
+      Soluciones Digitales, <span class="text-accent dark:text-white">Automatización</span> y Desarrollo Web a Medida
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Ayudo a empresas a escalar mediante diseño web moderno, integraciones con Odoo y flujos de automatización eficientes.
+    </Fragment>
+  </Hero>
+
+  <!-- Features Widget / Servicios *************** -->
+  <span id="servicios" class="scroll-mt-24"></span>
+  <Features
+    id="features"
+    tagline="Mis Habilidades"
+    title="Pilares de Servicio"
+    subtitle="Tecnologías y enfoques que utilizo para transformar y optimizar negocios digitales."
+    items={[
+      {
+        title: 'Diseño y Desarrollo Web',
+        description:
+          'Creación de interfaces modernas, rápidas y optimizadas para conversión utilizando frameworks vanguardistas como Astro y Tailwind CSS.',
+        icon: 'tabler:device-laptop',
+      },
+      {
+        title: 'Integración con Odoo',
+        description:
+          'Conexión de ecosistemas empresariales y personalización de módulos ERP para mejorar la gestión y centralizar los recursos corporativos.',
+        icon: 'tabler:database-export',
+      },
+      {
+        title: 'Automatización de Procesos',
+        description:
+          'Arquitectura de flujos de trabajo eficientes utilizando herramientas low-code, n8n, Supabase y plataformas como Antigravity para reducir tareas manuales.',
+        icon: 'tabler:robot',
+      },
+    ]}
+  />
+
+  <!-- Seccion Portafolio (Custom Tailwind) **************** -->
+  <span id="portafolio" class="scroll-mt-24"></span>
+  <section class="relative mx-auto max-w-7xl px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default">
+    <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-3xl">
+      <p class="text-base text-secondary dark:text-blue-200 font-semibold tracking-wide uppercase">Proyectos Destacados</p>
+      <h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">Mi Portafolio</h2>
+      <p class="mt-4 text-muted text-xl">Una selección de trabajos recientes demostrando escalabilidad, diseño de vanguardia y funcionalidad premium.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+      <!-- Proyecto 1: Maison Bernel -->
+      <a href="https://maison-bernel-lu-f8bo.vercel.app/" target="_blank" class="block group relative overflow-hidden rounded-2xl shadow-lg transition-transform duration-300 hover:-translate-y-2">
+        <img src="/src/assets/images/maison.png" alt="Maison Bernel" class="w-full h-80 object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-80"></div>
+        <div class="absolute bottom-0 left-0 p-6 w-full">
+          <h3 class="text-2xl font-bold text-white mb-2">Maison Bernel</h3>
+          <p class="text-gray-300">Solución comercial corporativa y boutique de lujo.</p>
+        </div>
+      </a>
+
+      <!-- Proyecto 2: Yates Landing -->
+      <a href="https://yates-jbmy.vercel.app/" target="_blank" class="block group relative overflow-hidden rounded-2xl shadow-lg transition-transform duration-300 hover:-translate-y-2">
+        <img src="/src/assets/images/yates.png" alt="Yates Landing" class="w-full h-80 object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-80"></div>
+        <div class="absolute bottom-0 left-0 p-6 w-full">
+          <h3 class="text-2xl font-bold text-white mb-2">Yates Landing</h3>
+          <p class="text-gray-300">Interfaz de alto nivel para servicios de alquiler de lujo.</p>
+        </div>
+      </a>
+
+      <!-- Proyecto 3: Plataforma Juegos -->
+      <a href="https://juegos-five.vercel.app/" target="_blank" class="block group relative overflow-hidden rounded-2xl shadow-lg transition-transform duration-300 hover:-translate-y-2">
+        <img src="/src/assets/images/juegos.png" alt="Plataforma de Juegos Web" class="w-full h-80 object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-80"></div>
+        <div class="absolute bottom-0 left-0 p-6 w-full">
+          <h3 class="text-2xl font-bold text-white mb-2">Plataforma de Juegos</h3>
+          <p class="text-gray-300">Catálogo interactivo de entretenimiento web.</p>
+        </div>
+      </a>
+
+      <!-- Proyecto 4: Juegos Super Dragon -->
+      <a href="https://super-dragon.vercel.app/" target="_blank" class="block group relative overflow-hidden rounded-2xl shadow-lg transition-transform duration-300 hover:-translate-y-2">
+        <img src="/src/assets/images/dragon.png" alt="Juegos Interactivos" class="w-full h-80 object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-80"></div>
+        <div class="absolute bottom-0 left-0 p-6 w-full">
+          <h3 class="text-2xl font-bold text-white mb-2">Juegos Interactivos 54</h3>
+          <p class="text-gray-300">Experiencia de usuario inmersiva y lógica en navegador.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Contacto Simple -->
+  <span id="contacto" class="scroll-mt-24"></span>
+  <section class="max-w-4xl mx-auto px-4 py-16 text-center">
+    <h2 class="text-3xl font-bold mb-6">¿Listo para escalar tu negocio?</h2>
+    <p class="text-xl text-gray-600 dark:text-gray-400 mb-8">Ponte en contacto conmigo para discutir tu próximo gran proyecto.</p>
+    <a href="mailto:jorgeraudelricardo@gmail.com" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-lg">
+      Hablemos de tu proyecto
+    </a>
+  </section>
+</Layout>

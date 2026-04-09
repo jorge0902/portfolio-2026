@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AUDIT_INQUIRY | ARCHITECT_SYSTEMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#0d6100",
+                    "secondary-container": "#006d2f",
+                    "tertiary": "#88f6ff",
+                    "primary-dim": "#2be800",
+                    "surface-container": "#19191b",
+                    "tertiary-dim": "#00deea",
+                    "secondary": "#90f9a3",
+                    "on-secondary-fixed": "#004a1e",
+                    "on-background": "#ffffff",
+                    "inverse-surface": "#fcf8f9",
+                    "on-tertiary": "#005d62",
+                    "background": "#0e0e0f",
+                    "primary-fixed-dim": "#2be800",
+                    "surface-tint": "#8eff71",
+                    "primary": "#8eff71",
+                    "on-surface-variant": "#acaaab",
+                    "surface": "#0e0e0f",
+                    "error-container": "#b92902",
+                    "on-primary-fixed-variant": "#0d6200",
+                    "on-secondary-fixed-variant": "#006a2e",
+                    "surface-bright": "#2c2c2d",
+                    "surface-variant": "#262627",
+                    "tertiary-container": "#17eefa",
+                    "surface-container-highest": "#262627",
+                    "secondary-dim": "#82ea96",
+                    "on-tertiary-fixed": "#003f43",
+                    "surface-container-low": "#131314",
+                    "surface-dim": "#0e0e0f",
+                    "secondary-fixed-dim": "#82ea96",
+                    "on-error-container": "#ffd2c8",
+                    "surface-container-high": "#1f1f21",
+                    "on-tertiary-container": "#005458",
+                    "tertiary-fixed": "#17eefa",
+                    "on-tertiary-fixed-variant": "#005e63",
+                    "on-surface": "#ffffff",
+                    "on-primary-fixed": "#064200",
+                    "on-primary-container": "#0b5800",
+                    "inverse-on-surface": "#555556",
+                    "error": "#ff7351",
+                    "secondary-fixed": "#90f9a3",
+                    "primary-fixed": "#2ff801",
+                    "inverse-primary": "#106f00",
+                    "tertiary-fixed-dim": "#00deea",
+                    "outline": "#767576",
+                    "on-secondary-container": "#e4ffe2",
+                    "primary-container": "#2ff801",
+                    "error-dim": "#d53d18",
+                    "on-error": "#450900",
+                    "surface-container-lowest": "#000000",
+                    "outline-variant": "#484849",
+                    "on-secondary": "#005f28"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0e0e0f; }
+        ::-webkit-scrollbar-thumb { background: #1f1f21; }
+        ::-webkit-scrollbar-thumb:hover { background: #8eff71; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#0e0e0f]">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black text-[#8eff71] tracking-tighter font-['Inter'] uppercase">ARCHITECT_CORE_V1</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-gray-500 uppercase text-xs font-bold font-['Inter'] hover:text-[#8eff71] transition-colors duration-150" href="#">SYSTEM</a>
+<a class="text-gray-500 uppercase text-xs font-bold font-['Inter'] hover:text-[#8eff71] transition-colors duration-150" href="#">NETWORK</a>
+<a class="text-gray-500 uppercase text-xs font-bold font-['Inter'] hover:text-[#8eff71] transition-colors duration-150" href="#">LOGS</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#8eff71] cursor-pointer">settings_input_component</span>
+<span class="material-symbols-outlined text-[#8eff71] cursor-pointer">terminal</span>
+<span class="material-symbols-outlined text-[#8eff71] cursor-pointer">sensors</span>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col bg-[#131314] hidden lg:flex">
+<div class="p-6">
+<h2 class="text-[#8eff71] font-bold font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest">MODULE_NAV</h2>
+<p class="text-gray-500 text-[10px] font-label">V.2.0.4-STABLE</p>
+</div>
+<div class="flex flex-col flex-grow">
+<a class="text-gray-400 px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200 ease-in-out flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-sm">dashboard</span> DASHBOARD
+            </a>
+<a class="text-gray-400 px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200 ease-in-out flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-sm">precision_manufacturing</span> AUTOMATION
+            </a>
+<a class="text-gray-400 px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200 ease-in-out flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-sm">settings_input_hdmi</span> INFRASTRUCTURE
+            </a>
+<a class="text-gray-400 px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200 ease-in-out flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-sm">encrypted</span> SECURITY
+            </a>
+<a class="text-gray-400 px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200 ease-in-out flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-sm">query_stats</span> DIAGNOSTICS
+            </a>
+</div>
+<div class="mt-auto border-t border-outline-variant/10">
+<a class="text-gray-400 px-4 py-3 font-label text-[0.75rem] uppercase tracking-widest hover:bg-[#1f1f21] hover:text-[#8eff71] transition-all duration-200 ease-in-out flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-sm">power_settings_new</span> LOGOUT
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 mt-16 p-8 min-h-screen bg-surface">
+<!-- Audit Header Section -->
+<header class="mb-12 max-w-4xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary font-label text-xs tracking-[0.2em] mb-4">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                STATION_AUDIT_PROTOCOL_01
+            </div>
+<h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9] mb-6">Initiate <br/><span class="text-primary">System Audit</span></h1>
+<p class="text-on-surface-variant font-label text-sm leading-relaxed max-w-2xl">
+                Define parameters for technical evaluation. Our industrial framework maps existing architecture to high-performance benchmarks. Complete the handshake sequence to proceed.
+            </p>
+</header>
+<!-- Audit Form Container -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+<!-- Left Form Column -->
+<section class="xl:col-span-8 bg-surface-container-low p-1 border-none">
+<div class="bg-surface p-8 md:p-12 space-y-12">
+<!-- Identity Block -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-2">
+<label class="font-label text-[0.7rem] uppercase tracking-widest text-primary">001_ORCHESTRATOR_NAME</label>
+<input class="w-full bg-surface-container-highest border-none p-4 font-label text-sm focus:ring-0 focus:border-b-2 focus:border-primary transition-all placeholder:text-outline/50" placeholder="ENTER FULL DESIGNATION" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label text-[0.7rem] uppercase tracking-widest text-primary">002_CONTACT_UPLINK</label>
+<input class="w-full bg-surface-container-highest border-none p-4 font-label text-sm focus:ring-0 focus:border-b-2 focus:border-primary transition-all placeholder:text-outline/50" placeholder="ENCRYPTED_EMAIL@DOMAIN.COM" type="email"/>
+</div>
+</div>
+<!-- Scope Multi-Selector (Asymmetric Chips) -->
+<div class="space-y-4">
+<label class="font-label text-[0.7rem] uppercase tracking-widest text-primary">003_PROJECT_SCOPE_SELECTION</label>
+<div class="flex flex-wrap gap-4">
+<button class="px-6 py-4 bg-surface-container-highest border-l-4 border-primary text-primary font-label text-xs tracking-widest uppercase transition-all hover:bg-surface-container-high">
+                                Scalability
+                            </button>
+<button class="px-6 py-4 bg-surface-container-low border-l-4 border-outline-variant/30 text-on-surface-variant font-label text-xs tracking-widest uppercase transition-all hover:border-primary/50 hover:text-on-surface">
+                                Automation
+                            </button>
+<button class="px-6 py-4 bg-surface-container-low border-l-4 border-outline-variant/30 text-on-surface-variant font-label text-xs tracking-widest uppercase transition-all hover:border-primary/50 hover:text-on-surface">
+                                Premium Presence
+                            </button>
+<button class="px-6 py-4 bg-surface-container-low border-l-4 border-outline-variant/30 text-on-surface-variant font-label text-xs tracking-widest uppercase transition-all hover:border-primary/50 hover:text-on-surface">
+                                Security Mesh
+                            </button>
+</div>
+</div>
+<!-- Fiscal Bracket (Custom Range Look) -->
+<div class="space-y-4">
+<label class="font-label text-[0.7rem] uppercase tracking-widest text-primary">004_FISCAL_BRACKET_VALUATION</label>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+<div class="p-4 bg-surface-container-highest flex flex-col gap-1 cursor-pointer group">
+<span class="text-[0.6rem] font-label text-outline group-hover:text-primary transition-colors">T-01</span>
+<span class="text-xs font-bold font-headline tracking-tighter">$10K - $25K</span>
+</div>
+<div class="p-4 bg-surface-container-low hover:bg-surface-container-high flex flex-col gap-1 cursor-pointer group transition-all">
+<span class="text-[0.6rem] font-label text-outline group-hover:text-primary transition-colors">T-02</span>
+<span class="text-xs font-bold font-headline tracking-tighter">$25K - $50K</span>
+</div>
+<div class="p-4 bg-surface-container-low hover:bg-surface-container-high flex flex-col gap-1 cursor-pointer group transition-all">
+<span class="text-[0.6rem] font-label text-outline group-hover:text-primary transition-colors">T-03</span>
+<span class="text-xs font-bold font-headline tracking-tighter">$50K - $100K</span>
+</div>
+<div class="p-4 bg-surface-container-low hover:bg-surface-container-high flex flex-col gap-1 cursor-pointer group transition-all">
+<span class="text-[0.6rem] font-label text-outline group-hover:text-primary transition-colors">T-04</span>
+<span class="text-xs font-bold font-headline tracking-tighter">$100K+</span>
+</div>
+</div>
+</div>
+<!-- Description Area -->
+<div class="space-y-2">
+<label class="font-label text-[0.7rem] uppercase tracking-widest text-primary">005_SYSTEM_REQUIREMENTS_DUMP</label>
+<textarea class="w-full bg-surface-container-highest border-none p-4 font-label text-sm focus:ring-0 focus:border-b-2 focus:border-primary transition-all placeholder:text-outline/50 resize-none" placeholder="INITIALIZE SYSTEM REQUIREMENTS LOG..." rows="5"></textarea>
+</div>
+<!-- Final Action -->
+<div class="pt-6">
+<button class="w-full group relative overflow-hidden bg-primary p-6 text-on-primary font-black uppercase tracking-tighter flex items-center justify-center gap-3 transition-transform active:scale-[0.98]">
+<div class="absolute inset-0 bg-gradient-to-r from-primary to-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="relative z-10 text-xl">Initiate Handshake</span>
+<span class="material-symbols-outlined relative z-10 font-bold">bolt</span>
+</button>
+<p class="text-[0.6rem] font-label text-outline uppercase tracking-[0.3em] mt-4 text-center">
+                            Awaiting Signal Persistence... Estimated Response Time: 12-24 Hours
+                        </p>
+</div>
+</div>
+</section>
+<!-- Right Visual/Data Column -->
+<section class="xl:col-span-4 space-y-6">
+<!-- Status Card -->
+<div class="bg-surface-container-high p-8">
+<h3 class="font-label text-xs uppercase tracking-widest text-primary mb-6">Module_Status</h3>
+<div class="space-y-6">
+<div class="flex justify-between items-end border-b border-outline-variant/10 pb-4">
+<span class="font-label text-[0.7rem] text-outline">UPTIME_INDEX</span>
+<span class="font-headline font-bold text-lg">99.98%</span>
+</div>
+<div class="flex justify-between items-end border-b border-outline-variant/10 pb-4">
+<span class="font-label text-[0.7rem] text-outline">ENCRYPTION</span>
+<span class="font-headline font-bold text-lg">AES-256</span>
+</div>
+<div class="flex justify-between items-end border-b border-outline-variant/10 pb-4">
+<span class="font-label text-[0.7rem] text-outline">LOC_LATENCY</span>
+<span class="font-headline font-bold text-lg">14ms</span>
+</div>
+</div>
+</div>
+<!-- Industrial Image Aesthetic -->
+<div class="relative aspect-square overflow-hidden bg-surface-container-highest group">
+<img alt="Industrial terminal aesthetic" class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" data-alt="Close-up of a high-tech industrial circuit board with glowing green LEDs and complex metallic architecture in a dark setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzvK59-IBaX_1tFyFzfZkk0OC8Y4dnedVA3hNybbu98lHlmPaVZpJGrxJ8qH_A1pZ4dYZ_3bzB7CkFCRxM6gYyerVWqQ5ZJWmQpDvxElqzn4ogtkR3oRK6sR2OVCfNZAvFZPtc9AZsQBqaQU-urGwO8atLatAKfGpB_iPpb-DIlBEBoSxMZXagG8hclyAycvcsminqxHHRWNPSOFkU0dx9AT8Rqk1Gicok0fr1LctarspVeJ266XK0jXYX0meBnEyHoYlhCKzh1ng"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 font-label text-[0.6rem] text-primary/50 tracking-widest uppercase">
+                        FIG_04 // CORE_INFRASTRUCTURE
+                    </div>
+</div>
+<!-- Technical Note -->
+<div class="p-6 bg-[#131314] text-on-surface-variant text-[0.7rem] font-label leading-relaxed border-l-2 border-primary/20">
+<span class="text-primary block mb-2 font-bold">AUTHENTICATION_NOTICE:</span>
+                    All data transmitted through this handshake is secured via end-to-end industrial-grade protocols. By clicking "Initiate Handshake", you acknowledge the ARCHITECT_SYSTEMS privacy directives.
+                </div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 w-full px-6 py-2 flex justify-between items-center z-50 bg-[#131314] font-label text-[10px] tracking-widest text-gray-500 cursor-crosshair">
+<div class="flex items-center gap-6">
+<span class="uppercase">© 2024 ARCHITECT_SYSTEMS | LATENCY: 24MS | ENCRYPTION: AES-256-GCM</span>
+</div>
+<div class="flex items-center gap-4">
+<a class="hover:text-white transition-colors" href="#">PRIVACY_PROTOCOL</a>
+<a class="hover:text-white transition-colors" href="#">SYSTEM_STATUS</a>
+<a class="hover:text-white transition-colors" href="#">SOURCE_CODE</a>
+</div>
+</footer>
+</body></html>
