@@ -439,13 +439,13 @@
         .char-inline { display: inline-block; white-space: pre; }
         
         @keyframes text-wave-anim {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            0%, 100% { transform: translateY(0); opacity: 0.9; }
+            50% { transform: translateY(-5px); opacity: 1; }
         }
 
         .wave-char {
             display: inline-block;
-            animation: text-wave-anim 3s ease-in-out infinite;
+            animation: text-wave-anim 4s ease-in-out infinite;
             animation-delay: var(--delay);
         }
 
