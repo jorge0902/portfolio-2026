@@ -641,11 +641,263 @@
             animation: moveRight-robot var(--EVA-ROTATION-DURATION) linear infinite;
         }
 
-        @keyframes rotateRight-robot { from { transform: rotateY(0deg); } to { transform: rotateY(25deg); } }
-        @keyframes moveRight-robot { from { transform: translate(-50%, -50%); } to { transform: translate(-40%, -50%); } }
-        @keyframes compensateRotation-robot { from { transform: rotateY(55deg) rotateZ(10deg); } to { transform: rotatey(30deg) rotateZ(10deg); } }
-        @keyframes compensateRotationRight-robot { from { transform: rotateY(55deg) rotateZ(-10deg); } to { transform: rotateY(70deg) rotateZ(-10deg); } }
         @keyframes glow-robot { 0%, 100% { opacity: 0; } 20% { opacity: 1; } 45% { transform: rotate(-25deg); } 75% { transform: rotate(5deg); } }
+
+        /* MacBook 3D Section */
+        .mac3d-wrapper {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(1.6);
+        }
+
+        .mac3d-macbook {
+            width: 150px;
+            height: 96px;
+            position: absolute;
+            perspective: 500px;
+            z-index: 10;
+        }
+
+        .mac3d-shadow {
+            position: absolute;
+            width: 60px;
+            height: 0px;
+            left: 45px;
+            top: 150px;
+            transform: rotateX(80deg) rotateY(0deg) rotateZ(0deg);
+            box-shadow: 0 0 60px 40px rgba(0,0,0,0.4);
+            animation: mac3d-shadow-anim 7s ease infinite;
+        }
+
+        .mac3d-inner {
+            z-index: 20;
+            position: absolute;
+            width: 150px;
+            height: 96px;
+            left: 0;
+            top: 0;
+            transform-style: preserve-3d;
+            transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg);
+            animation: mac3d-rotate-anim 7s ease infinite;
+        }
+
+        .mac3d-screen {
+            width: 150px;
+            height: 96px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            border-radius: 7px;
+            background: #ddd;
+            transform-style: preserve-3d;
+            transform-origin: 50% 93px;
+            transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            animation: mac3d-lid-screen-anim 7s ease infinite;
+            background-image: linear-gradient(45deg, rgba(0,0,0,0.34) 0%,rgba(0,0,0,0) 100%);
+            background-position: left bottom;
+            background-size: 300px 300px;
+            box-shadow: inset 0 3px 7px rgba(255,255,255,0.5);
+        }
+
+        .mac3d-face-one {
+            width: 150px;
+            height: 96px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            border-radius: 7px;
+            background: #d3d3d3;
+            transform: translateZ(2px);
+            background-image: linear-gradient(45deg,rgba(0,0,0,0.24) 0%,rgba(0,0,0,0) 100%);
+        }
+
+        .mac3d-face-one .camera {
+            width: 3px;
+            height: 3px;
+            border-radius: 100%;
+            background: #000;
+            position: absolute;
+            left: 50%;
+            top: 4px;
+            margin-left: -1.5px;
+        }
+
+        .mac3d-face-one .display {
+            width: 130px;
+            height: 74px;
+            margin: 10px;
+            background-color: #000;
+            background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=400&q=80');
+            background-size: 100% 100%;
+            border-radius: 1px;
+            position: relative;
+            box-shadow: inset 0 0 2px rgba(0,0,0,1);
+        }
+
+        .mac3d-face-one .display .shade {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 130px;
+            height: 74px;
+            background: linear-gradient(-135deg, rgba(255,255,255,0) 0%,rgba(255,255,255,0.1) 47%,rgba(255,255,255,0) 48%);
+            animation: mac3d-screen-shade-anim 7s ease infinite;
+            background-size: 300px 200px;
+            background-position: 0px 0px;
+        }
+
+        .mac3d-face-one span {
+            position: absolute;
+            top: 85px;
+            left: 57px;
+            font-size: 6px;
+            color: #666
+        }
+
+        .mac3d-macbody {
+            width: 150px;
+            height: 96px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            border-radius: 7px;
+            background: #cbcbcb;
+            transform-style: preserve-3d;
+            transform-origin: 50% bottom;
+            transform: rotateX(-90deg);
+            animation: mac3d-lid-macbody-anim 7s ease infinite;
+            background-image: linear-gradient(45deg, rgba(0,0,0,0.24) 0%,rgba(0,0,0,0) 100%);
+        }
+
+        .mac3d-macbody .mac3d-face-one {
+            width: 150px;
+            height: 96px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            border-radius: 7px;
+            transform-style: preserve-3d;
+            background: #dfdfdf;
+            animation: mac3d-lid-keyboard-area-anim 7s ease infinite;
+            transform: translateZ(-2px);
+            background-image: linear-gradient(30deg, rgba(0,0,0,0.24) 0%,rgba(0,0,0,0) 100%);
+        }
+
+        .mac3d-macbody .touchpad {
+            width: 40px;
+            height: 31px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            border-radius: 4px;
+            margin: -44px 0 0 -18px;
+            background: #cdcdcd;
+            background-image: linear-gradient(30deg, rgba(0,0,0,0.24) 0%,rgba(0,0,0,0) 100%);
+            box-shadow: inset 0 0 3px #888;
+        }
+
+        .mac3d-macbody .keyboard {
+            width: 130px;
+            height: 45px;
+            position: absolute;
+            left: 7px;
+            top: 41px;
+            border-radius: 4px;
+            transform-style: preserve-3d;
+            background: #cdcdcd;
+            background-image: linear-gradient(30deg, rgba(0,0,0,0.24) 0%,rgba(0,0,0,0) 100%);
+            box-shadow: inset 0 0 3px #777;
+            padding: 0 0 0 2px;
+        }
+
+        .mac3d-keyboard .key {
+            width: 6px;
+            height: 6px;
+            background: #444;
+            float: left;
+            margin: 1px;
+            transform: translateZ(-2px);
+            border-radius: 2px;
+            box-shadow: 0 -2px 0 #222;
+            animation: mac3d-keys-anim 7s ease infinite;
+        }
+
+        .mac3d-key.space { width: 45px; }
+        .mac3d-key.f { height: 3px; }
+
+        .mac3d-macbody .pad {
+            width: 5px;
+            height: 5px;
+            background: #333;
+            border-radius: 100%;
+            position: absolute;
+        }
+
+        .pad.one { left: 20px; top: 20px; }
+        .pad.two { right: 20px; top: 20px; }
+        .pad.three { right: 20px; bottom: 20px; }
+        .pad.four { left: 20px; bottom: 20px; }
+
+        @keyframes mac3d-rotate-anim {
+            0% { transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg); }
+            5% { transform: rotateX(-20deg) rotateY(-20deg) rotateZ(0deg); }
+            20% { transform: rotateX(30deg) rotateY(200deg) rotateZ(0deg); }
+            25% { transform: rotateX(-60deg) rotateY(150deg) rotateZ(0deg); }
+            60% { transform: rotateX(-20deg) rotateY(130deg) rotateZ(0deg); }
+            65% { transform: rotateX(-20deg) rotateY(120deg) rotateZ(0deg); }
+            80% { transform: rotateX(-20deg) rotateY(375deg) rotateZ(0deg); }
+            85% { transform: rotateX(-20deg) rotateY(357deg) rotateZ(0deg); }
+            87% { transform: rotateX(-20deg) rotateY(360deg) rotateZ(0deg); }
+            100% { transform: rotateX(-20deg) rotateY(360deg) rotateZ(0deg); }
+        }
+
+        @keyframes mac3d-lid-screen-anim {
+            0% { transform: rotateX(0deg); background-position: left bottom; }
+            5% { transform: rotateX(50deg); background-position: left bottom; }
+            20% { transform: rotateX(-90deg); background-position: -150px top; }
+            25% { transform: rotateX(15deg); background-position: left bottom; }
+            30% { transform: rotateX(-5deg); background-position: right top; }
+            38% { transform: rotateX(5deg); background-position: right top; }
+            48%, 90% { transform: rotateX(0deg); background-position: right top; }
+            100% { transform: rotateX(0deg); background-position: right center; }
+        }
+
+        @keyframes mac3d-lid-macbody-anim {
+            0%, 50%, 100% { transform: rotateX(-90deg); }
+        }
+
+        @keyframes mac3d-lid-keyboard-area-anim {
+            0%, 100% { background-color: #dfdfdf; }
+            50% { background-color: #bbb; }
+        }
+
+        @keyframes mac3d-screen-shade-anim {
+            0%, 100% { background-position: -20px 0px; }
+            5% { background-position: -40px 0px; }
+            20% { background-position: 200px 0; }
+            50% { background-position: -200px 0; }
+            80% { background-position: 0px 0px; }
+            85% { background-position: -30px 0; }
+            90% { background-position: -20px 0; }
+        }
+
+        @keyframes mac3d-keys-anim {
+            0%, 80%, 85%, 87%, 100% { box-shadow: 0 -2px 0 #222; }
+            5% { box-shadow: 1 -1px 0 #222; }
+            20%, 25%, 60% { box-shadow: -1px 1px 0 #222; }
+        }
+
+        @keyframes mac3d-shadow-anim {
+            0%, 5% { transform: rotateX(80deg) rotateY(0deg); box-shadow: 0 0 60px 40px rgba(0,0,0,0.3); }
+            20% { transform: rotateX(30deg) rotateY(-20deg); box-shadow: 0 0 50px 30px rgba(0,0,0,0.3); }
+            25% { transform: rotateX(80deg) rotateY(-20deg); box-shadow: 0 0 35px 15px rgba(0,0,0,0.1); }
+            60% { transform: rotateX(80deg) rotateY(0deg) translateX(30px); box-shadow: 0 0 60px 40px rgba(0,0,0,0.3); }
+            100% { box-shadow: 0 0 60px 40px rgba(0,0,0,0.3); }
+        }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
@@ -667,34 +919,69 @@
 
 <main class="pt-24">
     <!-- Hero Section -->
-    <section class="relative min-h-[85vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 border-b border-outline-variant/15 overflow-hidden">
+    <section class="relative min-h-[90vh] flex items-center px-6 md:px-12 lg:px-24 border-b border-outline-variant/15 overflow-hidden">
         <div class="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
             <div class="grid grid-cols-12 h-full w-full">
                 <div class="col-span-1 border-r border-outline-variant/20"></div>
                 <div class="col-span-1 border-r border-outline-variant/20"></div>
                 <div class="col-span-1 border-r border-outline-variant/20"></div>
                 <div class="col-span-1 border-r border-outline-variant/20"></div>
-                <div class="col-span-1 border-r border-outline-variant/20"></div>
-                <div class="col-span-1 border-r border-outline-variant/20"></div>
             </div>
         </div>
-        <div class="relative z-10 max-w-5xl">
-            <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 bg-surface-container-highest border-l-2 border-primary">
-                <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase">ESTADO_SISTEMA: OPTIMIZADO</span>
+        
+        <div class="relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 lg:gap-20 items-center">
+            <!-- Left Content -->
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 bg-surface-container-highest border-l-2 border-primary">
+                    <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase">ESTADO_SISTEMA: OPTIMIZADO</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6 leading-[0.9]">
+                    Páginas Web Increíbles & <span class="text-primary terminal-glow">Sistemas</span> que trabajan por ti.
+                </h1>
+                <p class="text-lg md:text-xl text-on-surface-variant font-light max-w-2xl mb-10">
+                    Hacemos que tu negocio luzca profesional, atraiga más clientes y automatice esas tareas manuales que te quitan tiempo.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="bg-primary text-on-primary px-10 py-4 text-lg font-bold uppercase transition-all hover:brightness-110 active:scale-95">
+                        Agenda una Auditoría de Eficiencia
+                    </button>
+                    <a href="#portafolio" class="border border-outline-variant text-on-surface px-10 py-4 text-lg font-bold uppercase hover:bg-surface-container-high transition-all text-center">
+                        Ver Proyectos
+                    </a>
+                </div>
             </div>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6 leading-[0.9]">
-                Páginas Web Increíbles & <span class="text-primary terminal-glow">Sistemas</span> que trabajan por ti.
-            </h1>
-            <p class="text-lg md:text-xl text-on-surface-variant font-light max-w-2xl mb-10">
-                Hacemos que tu negocio luzca profesional, atraiga más clientes y automatice esas tareas manuales que te quitan tiempo.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4">
-                <button class="bg-primary text-on-primary px-10 py-4 text-lg font-bold uppercase transition-all hover:brightness-110 active:scale-95">
-                    Agenda una Auditoría de Eficiencia
-                </button>
-                <a href="#portafolio" class="border border-outline-variant text-on-surface px-10 py-4 text-lg font-bold uppercase hover:bg-surface-container-high transition-all text-center">
-                    Ver Proyectos
-                </a>
+
+            <!-- Right Visual (MacBook) -->
+            <div class="hidden lg:flex justify-center items-center">
+                <div class="mac3d-wrapper">
+                    <div class="mac3d-macbook">
+                        <div class="mac3d-inner">
+                            <div class="mac3d-screen">
+                                <div class="mac3d-face-one">
+                                    <div class="camera"></div>
+                                    <div class="display">
+                                        <div class="shade"></div>
+                                    </div>
+                                    <span>MacBook Air</span>
+                                </div>
+                            </div>
+                            <div class="mac3d-macbody">
+                                <div class="mac3d-face-one">
+                                    <div class="touchpad"></div>
+                                    <div class="keyboard">
+                                        <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                                        <div class="key space"></div>
+                                        <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                                        <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                                        <div class="key f"></div><div class="key f"></div><div class="key f"></div><div class="key f"></div>
+                                    </div>
+                                </div>
+                                <div class="pad one"></div><div class="pad two"></div><div class="pad three"></div><div class="pad four"></div>
+                            </div>
+                        </div>
+                        <div class="mac3d-shadow"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
