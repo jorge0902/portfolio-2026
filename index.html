@@ -483,6 +483,169 @@
             0%, 100% { opacity: 0; }
             50% { opacity: 1; }
         }
+
+        @keyframes shootingStar-astro {
+            0% { transform: translateX(0) translateY(0); opacity: 1; }
+            50% { transform: translateX(-55em) translateY(0); opacity: 1; }
+            70% { transform: translateX(-70em) translateY(0); opacity: 0; }
+            100% { transform: translateX(0) translateY(0); opacity: 0; }
+        }
+
+        /* Robot Section */
+        .robot-section {
+            padding: 120px 0;
+            background: #0e0e0f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .robot-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 80px;
+            max-width: 1200px;
+            width: 100%;
+            padding: 0 24px;
+        }
+
+        @media (min-width: 1024px) {
+            .robot-container {
+                flex-direction: row;
+                text-align: left;
+            }
+        }
+
+        .robot-modelViewPort {
+            perspective: 1000px;
+            width: 20rem;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, rgba(142,255,113,0.05) 0%, transparent 70%);
+            border: 1px solid rgba(142,255,113,0.1);
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        .robot-eva {
+            --EVA-ROTATION-DURATION: 4s;
+            transform-style: preserve-3d;
+            animation: rotateRight-robot var(--EVA-ROTATION-DURATION) linear infinite alternate;
+        }
+
+        .robot-head {
+            position: relative;
+            width: 6rem;
+            height: 4rem;
+            border-radius: 48% 53% 45% 55% / 79% 79% 20% 22%;
+            background: linear-gradient(to right, #ffffff 45%, #9ca3af);
+        }
+
+        .robot-eyeChamber {
+            width: 4.5rem;
+            height: 2.75rem;
+            position: relative;
+            left: 50%;
+            top: 55%;
+            border-radius: 45% 53% 45% 48% / 62% 59% 35% 34%;
+            background-color: #0c111d;
+            box-shadow: 0px 0px 4px 1px #8eff71, inset 0px 0px 0px 2px #000;
+            transform: translate(-50%, -50%);
+            animation: moveRight-robot var(--EVA-ROTATION-DURATION) linear infinite alternate;
+        }
+
+        .robot-eye {
+            width: 1.2rem;
+            height: 1.5rem;
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .robot-eye:first-child {
+            left: 12px;
+            top: 50%;
+            background: repeating-linear-gradient(65deg, #8eff71 0px, #8eff71 1px, white 2px);
+            box-shadow: inset 0px 0px 5px #4ade80, 0px 0px 15px 2px #8eff71;
+            transform: translate(0, -50%) rotate(-65deg);
+        }
+
+        .robot-eye:nth-child(2) {
+            right: 12px;
+            top: 50%;
+            background: repeating-linear-gradient(-65deg, #8eff71 0px, #8eff71 1px, white 2px);
+            box-shadow: inset 0px 0px 5px #4ade80, 0px 0px 15px 2px #8eff71;
+            transform: translate(0, -50%) rotate(65deg);
+        }
+
+        .robot-body {
+            width: 6rem;
+            height: 8rem;
+            position: relative;
+            margin-block-start: 0.25rem;
+            border-radius: 47% 53% 45% 55% / 12% 9% 90% 88%;
+            background: linear-gradient(to right, #ffffff 35%, #9ca3af);
+        }
+
+        .robot-hand {
+            position: absolute;
+            left: -1.5rem;
+            top: 0.75rem;
+            width: 2rem;
+            height: 5.5rem;
+            border-radius: 40%;
+            background: linear-gradient(to left, #ffffff 15%, #9ca3af);
+            box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.3);
+            transform: rotateY(55deg) rotateZ(10deg);
+        }
+
+        .robot-hand:first-child {
+            animation: compensateRotation-robot var(--EVA-ROTATION-DURATION) linear infinite alternate;
+        }
+
+        .robot-hand:nth-child(2) {
+            left: 92%;
+            background: linear-gradient(to right, #ffffff 15%, #9ca3af);
+            transform: rotateY(55deg) rotateZ(-10deg);
+            animation: compensateRotationRight-robot var(--EVA-ROTATION-DURATION) linear infinite alternate;
+        }
+
+        .robot-scannerThing {
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 60%;
+            top: 10%;
+            border-top: 180px solid rgba(142,255,113,0.3);
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            transform-origin: top left;
+            mask: linear-gradient(to right, white, transparent 40%);
+            animation: glow-robot 2s cubic-bezier(0.86, 0, 0.07, 1) infinite;
+        }
+
+        .robot-scannerOrigin {
+            position: absolute;
+            width: 8px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            left: 60%;
+            top: 10%;
+            background: #8eff71;
+            box-shadow: 0 0 15px #8eff71;
+            animation: moveRight-robot var(--EVA-ROTATION-DURATION) linear infinite;
+        }
+
+        @keyframes rotateRight-robot { from { transform: rotateY(0deg); } to { transform: rotateY(25deg); } }
+        @keyframes moveRight-robot { from { transform: translate(-50%, -50%); } to { transform: translate(-40%, -50%); } }
+        @keyframes compensateRotation-robot { from { transform: rotateY(55deg) rotateZ(10deg); } to { transform: rotatey(30deg) rotateZ(10deg); } }
+        @keyframes compensateRotationRight-robot { from { transform: rotateY(55deg) rotateZ(-10deg); } to { transform: rotateY(70deg) rotateZ(-10deg); } }
+        @keyframes glow-robot { 0%, 100% { opacity: 0; } 20% { opacity: 1; } 45% { transform: rotate(-25deg); } 75% { transform: rotate(5deg); } }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
@@ -659,6 +822,51 @@
                 <h2 id="info-title">YATES JB</h2>
                 <p id="info-desc">Arquitectura para la gestión de flota y reservas de lujo en tiempo real con automatización de calendarios.</p>
                 <div class="h-px w-24 bg-primary/30"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Automation Section -->
+    <section id="automatizacion" class="robot-section border-t border-primary/10">
+        <div class="robot-container">
+            <!-- Robot Visual -->
+            <div class="robot-modelViewPort machined-gradient">
+                <div class="robot-eva">
+                    <div class="robot-head">
+                        <div class="robot-eyeChamber">
+                            <div class="robot-eye"></div>
+                            <div class="robot-eye"></div>
+                        </div>
+                    </div>
+                    <div class="robot-body">
+                        <div class="robot-hand"></div>
+                        <div class="robot-hand"></div>
+                        <div class="robot-scannerThing"></div>
+                        <div class="robot-scannerOrigin"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 space-y-8">
+                <div>
+                    <span class="font-label text-primary text-[0.7rem] tracking-widest uppercase block mb-2">OPERACIÓN_AUTÓNOMA // N8N + ODOO + PYTHON</span>
+                    <h2 class="text-5xl font-black tracking-tighter uppercase leading-none mb-4">Arquitectura de <span class="text-primary">Flujos</span></h2>
+                    <p class="text-xl text-on-surface-variant max-w-xl leading-relaxed">
+                        Diseño el cerebro operativo de tu empresa. Sincronizo herramientas aisladas para crear un ecosistema vivo que elimina el error humano y escala tus resultados.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-6 bg-surface-container-low border border-outline-variant/10 hover:border-primary/30 transition-colors">
+                        <h4 class="text-primary font-bold uppercase mb-2 text-xs tracking-widest leading-none">Flujos n8n</h4>
+                        <p class="text-[0.65rem] text-on-surface-variant uppercase tracking-tighter">Lógica compleja y pipelines de datos multi-plataforma.</p>
+                    </div>
+                    <div class="p-6 bg-surface-container-low border border-outline-variant/10 hover:border-primary/30 transition-colors">
+                        <h4 class="text-primary font-bold uppercase mb-2 text-xs tracking-widest leading-none">Odoo Connect</h4>
+                        <p class="text-[0.65rem] text-on-surface-variant uppercase tracking-tighter">Puentes inteligentes entre tu ERP y el mundo exterior.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
