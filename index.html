@@ -113,7 +113,7 @@
             perspective: 1500px; 
             gap: 4rem;
             position: relative;
-            z-index: 10; /* Por encima del fondo */
+            z-index: 50; /* Máxima prioridad */
         }
 
         #project-info {
@@ -123,7 +123,7 @@
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
             position: relative;
-            z-index: 20; /* Asegurar que el texto esté siempre arriba */
+            z-index: 100; /* Texto siempre al frente */
         }
 
         #project-info.visible {
@@ -377,10 +377,10 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            opacity: 0.8; /* Ajustado para que no sea un bloque sólido pero oculte burbujas */
-            filter: blur(30px); 
+            opacity: 0.3; /* Mucho más sutil para no tapar nada */
+            filter: blur(25px); 
             transition: background-image 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 2; 
+            z-index: 1; /* Fondo real */
             pointer-events: none;
         }
 
@@ -1231,42 +1231,27 @@
             <h2 class="text-4xl md:text-5xl font-black tracking-tighter uppercase text-white">Portafolio</h2>
         </div>
 
-        <div class="scene-container">
+        <div class="scene-container relative z-30">
             <div class="spiral-inner" id="spiral-inner" style="--quantity: 5;">
                 <!-- Proyecto 01 -->
                 <div class="spiral-card" style="--index: 0; --color-card: 142, 255, 113;">
-                    <div class="spiral-img" style="background-image: url('assets/yates_jb.png');">
-                        <h4>Yates JB</h4>
-                        <p>Gestión de Reservas Premium</p>
-                    </div>
+                    <div class="spiral-img" style="background-image: url('assets/yates_jb.png');"></div>
                 </div>
                 <!-- Proyecto 02 -->
                 <div class="spiral-card" style="--index: 1; --color-card: 23, 238, 250;">
-                    <div class="spiral-img" style="background-image: url('assets/maison_bernel.png');">
-                        <h4>Maison Bernel</h4>
-                        <p>Boutique Digital de Lujo</p>
-                    </div>
+                    <div class="spiral-img" style="background-image: url('assets/maison_bernel.png');"></div>
                 </div>
                 <!-- Proyecto 03 -->
                 <div class="spiral-card" style="--index: 2; --color-card: 130, 234, 150;">
-                    <div class="spiral-img" style="background-image: url('assets/puerta_dubai.png');">
-                        <h4>Puerta Dubai</h4>
-                        <p>Hospitalidad & Real Estate</p>
-                    </div>
+                    <div class="spiral-img" style="background-image: url('assets/puerta_dubai.png');"></div>
                 </div>
                 <!-- Proyecto 04 -->
                 <div class="spiral-card" style="--index: 3; --color-card: 255, 115, 81;">
-                    <div class="spiral-img" style="background-image: url('assets/super_dragon.png');">
-                        <h4>Super Dragon</h4>
-                        <p>Sistemas E-commerce</p>
-                    </div>
+                    <div class="spiral-img" style="background-image: url('assets/super_dragon.png');"></div>
                 </div>
                 <!-- Proyecto 05 -->
                 <div class="spiral-card" style="--index: 4; --color-card: 142, 255, 113;">
-                    <div class="spiral-img" style="background-image: url('assets/odoo_auto.png');">
-                        <h4>Odoo Auto</h4>
-                        <p>Automatización de Procesos</p>
-                    </div>
+                    <div class="spiral-img" style="background-image: url('assets/odoo_auto.png');"></div>
                 </div>
             </div>
             <div id="project-info">
