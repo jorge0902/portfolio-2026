@@ -234,6 +234,106 @@
             letter-spacing: 1px;
             color: rgba(255, 255, 255, 0.6);
         }
+
+        /* 3D Stacked Cards - Pilares Tecnológicos */
+        .cards-stack {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 40px 0;
+            perspective: 1000px;
+        }
+
+        .pilar-card {
+            display: flex;
+            flex-direction: column;
+            width: 320px;
+            height: 420px;
+            background-color: #19191b;
+            border: 1px solid rgba(142, 255, 113, 0.1);
+            border-radius: 12px;
+            margin-left: -60px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            padding: 40px 30px;
+            cursor: crosshair;
+            box-shadow: -1rem 0 3rem rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        .pilar-card:first-child {
+            margin-left: 0;
+        }
+
+        .pilar-card:hover {
+            transform: translateY(-30px) rotateX(10deg);
+            z-index: 50;
+            border-color: #8eff71;
+            box-shadow: 0 20px 50px -10px rgba(142, 255, 113, 0.3);
+            background-color: #1f1f21;
+        }
+
+        .pilar-card:hover ~ .pilar-card {
+            transform: translateX(80px) rotateY(-20deg);
+        }
+
+        .pilar-card h3 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .pilar-card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: auto !important;
+        }
+
+        .pilar-card .card-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 6px;
+            width: 100%;
+            background: #262627;
+        }
+
+        .pilar-card .card-bar-filled {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #8eff71, #2be800);
+            box-shadow: 0 0 15px #8eff71;
+            transition: width 0.5s ease-out;
+        }
+
+        .pilar-card:hover .card-bar-filled {
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .cards-stack {
+                gap: 20px;
+            }
+            .pilar-card {
+                margin-left: 0 !important;
+                width: 100%;
+                height: auto;
+                transform: none !important;
+                box-shadow: none;
+            }
+            .pilar-card:hover {
+                transform: translateY(-5px) !important;
+            }
+            .pilar-card:hover ~ .pilar-card {
+                transform: none !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
@@ -293,35 +393,44 @@
             <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase block mb-2">001 // CAPACIDADES_NUCLEO</span>
             <h2 class="text-4xl font-black tracking-tighter uppercase">Pilares Tecnológicos</h2>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-0">
+        <div class="cards-stack">
             <!-- Web Dev -->
-            <div class="machined-gradient p-12 border-r border-outline-variant/10 flex flex-col h-full">
+            <div class="pilar-card">
                 <span class="material-symbols-outlined text-primary text-5xl mb-8">developer_mode</span>
-                <h3 class="text-2xl font-bold uppercase mb-4 font-headline">Desarrollo Web</h3>
-                <p class="text-on-surface-variant mb-8 leading-relaxed">Landing pages de alta conversión y aplicaciones web empresariales construidas con Next.js y Tailwind CSS para máxima velocidad.</p>
-                <div class="mt-auto flex flex-wrap gap-2">
+                <h3>Desarrollo Web</h3>
+                <p>Landing pages de alta conversión y aplicaciones web empresariales construidas con Next.js y Tailwind CSS para máxima velocidad.</p>
+                <div class="mt-8 flex flex-wrap gap-2">
                     <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">REACT_18</span>
                     <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">TYPESCRIPT</span>
                 </div>
+                <div class="card-bar">
+                    <div class="card-bar-filled"></div>
+                </div>
             </div>
             <!-- Automation & CRM -->
-            <div class="bg-surface-container-high p-12 border-r border-outline-variant/10 flex flex-col h-full">
+            <div class="pilar-card">
                 <span class="material-symbols-outlined text-primary text-5xl mb-8">settings_input_component</span>
-                <h3 class="text-2xl font-bold uppercase mb-4 font-headline">Automatización ERP</h3>
-                <p class="text-on-surface-variant mb-8 leading-relaxed">Implementaciones completas de Odoo y flujos de trabajo personalizados para eliminar la fricción manual en tus operaciones diarias.</p>
-                <div class="mt-auto flex flex-wrap gap-2">
+                <h3>Automatización ERP</h3>
+                <p>Implementaciones completas de Odoo y flujos de trabajo personalizados para eliminar la fricción manual en tus operaciones diarias.</p>
+                <div class="mt-8 flex flex-wrap gap-2">
                     <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">ODOO_ERP</span>
                     <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">PYTHON_SCRIPTS</span>
                 </div>
+                <div class="card-bar">
+                    <div class="card-bar-filled"></div>
+                </div>
             </div>
             <!-- Lead Engineering -->
-            <div class="machined-gradient p-12 flex flex-col h-full">
+            <div class="pilar-card">
                 <span class="material-symbols-outlined text-primary text-5xl mb-8">query_stats</span>
-                <h3 class="text-2xl font-bold uppercase mb-4 font-headline">Ingeniería de Leads</h3>
-                <p class="text-on-surface-variant mb-8 leading-relaxed">Arquitectura de embudos de captación de clientes conectados directamente a tu pipeline de ventas sin pérdida de datos.</p>
-                <div class="mt-auto flex flex-wrap gap-2">
+                <h3>Ingeniería de Leads</h3>
+                <p>Arquitectura de embudos de captación de clientes conectados directamente a tu pipeline de ventas sin pérdida de datos.</p>
+                <div class="mt-8 flex flex-wrap gap-2">
                     <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">PIPELINE_SYNC</span>
                     <span class="font-label text-[0.65rem] bg-surface px-2 py-1 text-on-surface-variant border-l border-primary">ANALYTICS_V4</span>
+                </div>
+                <div class="card-bar">
+                    <div class="card-bar-filled"></div>
                 </div>
             </div>
         </div>
@@ -331,7 +440,7 @@
     <section id="gravity-shatter" class="relative w-full" style="height: 300vh;">
         <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden" style="perspective: 1000px; background: #0e0e0f;">
             
-            <div id="shatter-text-wrapper" style="position: absolute; top: 25%; z-index: 10; width: 100%;">
+            <div id="shatter-text-wrapper" style="position: absolute; top: 15%; z-index: 10; width: 100%;">
                 <h2 id="shatter-text" class="font-display font-black text-center terminal-glow uppercase" style="color: #8eff71; text-shadow: 0 0 40px rgba(16,185,129,0.3); font-size: 2.5rem;"></h2>
             </div>
 
@@ -717,24 +826,24 @@
 
         gsap.utils.toArray('.shatter-letter').forEach((letter, index) => {
             const seed = index * 123.456;
-            // Aumentando los rangos para una caída más extrema
-            const randomY = 800 + (seed % 1200);     // Caída profunda de 800px a 2000px
-            const randomRot = -360 + (seed % 720);   // Giros completos
-            const randomX = -500 + (seed % 1000);    // Mayor esparcimiento horizontal y caótico
-            const randomScale = 0.5 + ((seed % 100) / 100); // Variación de escala al caer
+            // Ajustando para que caigan pero se queden en el "suelo" visible
+            const randomY = 500 + (seed % 200);      
+            const randomRot = -360 + (seed % 720);   
+            const randomX = -400 + (seed % 800);    
+            const randomScale = 0.8 + ((seed % 40) / 100); 
 
             gsap.to(letter, {
                 y: randomY,
                 x: randomX,
                 rotationZ: randomRot,
                 scale: randomScale,
-                opacity: 0,
-                ease: "power2.inOut", // Curva mucho más suave para distinguir la caída
+                opacity: 1, // Mantener visibles al caer
+                ease: "power2.inOut", 
                 scrollTrigger: {
                     trigger: "#gravity-shatter",
-                    start: `top+=${(index % 8) * 4}% top`, // El quiebre empieza gradualmente
-                    end: "bottom top", // Toma completamente toda la sección de scroll
-                    scrub: 1.5 // Reingresamos la inercia para que se deslice elegantemente
+                    start: `top+=${(index % 8) * 4}% top`, 
+                    end: "bottom top", 
+                    scrub: 1.5 
                 }
             });
         });
@@ -797,12 +906,12 @@
             trigger: "#proyectos-3d",
             start: "top top",
             end: "+=4000",
-            scrub: 1,
+            scrub: 0.5, // Respuesta más rápida al scroll
             pin: true,
             snap: {
                 snapTo: 1 / (totalCards - 1),
-                duration: 0.4,
-                delay: 0.05,
+                duration: 0.2, // Snap súper rápido
+                delay: 0,      // Sin retraso
                 ease: "power2.inOut"
             },
             onUpdate: (self) => {
