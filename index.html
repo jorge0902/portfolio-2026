@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -94,6 +95,14 @@
         }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        html, body { 
+            overflow-x: hidden !important; 
+            width: 100%; 
+            min-height: 100%; 
+            margin: 0; 
+            padding: 0;
+            position: relative;
+        }
         html { scroll-behavior: smooth; }
 
         /* Estilos Espiral 3D */
@@ -517,25 +526,55 @@
             letter-spacing: -0.05em;
         }
 
-        /* Mobile Optimizations */
+        /* Mobile Optimizations - Deep Refinement */
         @media (max-width: 768px) {
             .scene-container {
                 flex-direction: column-reverse;
-                gap: 2rem;
-                padding-top: 5rem;
+                gap: 1rem;
+                padding-top: 2rem;
+                height: 100dvh !important;
+                perspective: 1200px;
+                overflow: hidden;
             }
             #project-info {
                 max-width: 100%;
                 text-align: center;
                 pointer-events: auto;
+                padding: 0 1rem;
+                z-index: 100;
+            }
+            #project-info h2 {
+                font-size: 2.2rem !important;
+                margin-bottom: 0.5rem;
+            }
+            #project-info p {
+                font-size: 1rem !important;
+                margin-bottom: 1rem;
             }
             .spiral-inner {
                 margin-left: 0;
-                transform: scale(0.6);
+                --w: 220px !important;
+                --h: 140px !important;
+                --translateZ: 180px !important;
+                --y-step: 250px !important;
+                transform: scale(1.1) rotateX(-5deg); /* Compacting height and radius */
             }
             #hero-title-wave {
-                font-size: 2.5rem !important;
-                line-height: 1 !important;
+                font-size: 2.2rem !important;
+                line-height: 1.1 !important;
+            }
+            .mac3d-wrapper {
+                transform: scale(0.5) translateY(-50px);
+                margin-bottom: -100px;
+            }
+            .portfolio-dynamic-bg {
+                height: 100dvh !important;
+                width: 100vw !important;
+                top: 0; left: 0;
+            }
+            #proyectos-3d {
+                height: 100dvh !important;
+                min-height: -webkit-fill-available;
             }
         }
 
@@ -1411,6 +1450,29 @@
           left: 290px;
           top: 60px;
           animation: twinkling 2s infinite;
+        /* Estilos Física Hero */
+        #physics-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .falling-letter {
+            position: absolute;
+            pointer-events: none;
+            will-change: transform;
+            z-index: 20;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #8eff71;
+            text-shadow: 0 0 10px rgba(142, 255, 113, 0.5);
+        }
+        .char-span {
+            display: inline-block;
+            transition: opacity 0.2s;
         }
     </style>
 </head>
@@ -1438,7 +1500,8 @@
 
 <main class="pt-24">
     <!-- Hero Section -->
-    <section class="relative min-h-[85vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 border-b border-outline-variant/15 overflow-hidden">
+    <section id="hero-physics-space" class="relative min-h-[85vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 border-b border-outline-variant/15 overflow-hidden">
+        <div id="physics-container"></div>
         <!-- Hero Particles -->
         <div class="hero-particles-bg">
             <div class="h-particle" style="width: 4px; height: 4px; left: 10%; animation-delay: 0s;"></div>
@@ -1471,10 +1534,10 @@
                 Hacemos que tu negocio luzca profesional, atraiga más clientes y automatice esas tareas manuales que te quitan tiempo.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 reveal-item mt-10">
-                <button class="btn-primary-glow">
+                <button id="hero-btn-1" class="btn-primary-glow physics-obstacle">
                     Agenda una Auditoría de Eficiencia
                 </button>
-                <a href="#portafolio" class="btn-secondary-simple text-center flex items-center justify-center">
+                <a id="hero-btn-2" href="#portafolio" class="btn-secondary-simple text-center flex items-center justify-center physics-obstacle">
                     Ver Proyectos
                 </a>
             </div>
@@ -2278,7 +2341,7 @@
     const infoLink = document.getElementById('info-link');
     const dynamicBg = document.getElementById('dynamic-bg');
     const totalCards = cards.length;
-    const yStep = 450; 
+    const yStep = window.innerWidth <= 768 ? 250 : 450; 
 
     // Datos de los proyectos
     const projectData = [
@@ -2395,18 +2458,141 @@
         <a href="#filosofia" class="mobile-link">Filosofía</a>
     </div>
 
-    <script>
-        // Menu Móvil Logic
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const closeBtn = document.getElementById('close-menu-btn');
-        const menuOverlay = document.getElementById('mobile-menu-overlay');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+<script>
+    // --- LÓGICA DE FÍSICA MATTER.JS PARA EL HERO ---
+    const { Engine, Render, Runner, Bodies, Composite, World, Events } = Matter;
 
-        menuBtn?.addEventListener('click', () => menuOverlay.classList.add('active'));
-        closeBtn?.addEventListener('click', () => menuOverlay.classList.remove('active'));
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => menuOverlay.classList.remove('active'));
+    const engine = Engine.create();
+    const world = engine.world;
+    const container = document.getElementById('physics-container');
+    const heroSection = document.getElementById('hero-physics-space');
+    const physicalLetters = [];
+
+    // 1. Crear Suelo y Obstáculos (Botones)
+    function setupPhysicsObstacles() {
+        World.clear(world);
+        
+        const rect = heroSection.getBoundingClientRect();
+        
+        // Suelo de la sección
+        const ground = Bodies.rectangle(rect.width / 2, rect.height - 10, rect.width, 20, { 
+            isStatic: true,
+            render: { fillStyle: 'transparent' }
         });
-    </script>
+        
+        // Paredes laterales
+        const leftWall = Bodies.rectangle(-10, rect.height / 2, 20, rect.height, { isStatic: true });
+        const rightWall = Bodies.rectangle(rect.width + 10, rect.height / 2, 20, rect.height, { isStatic: true });
+        
+        World.add(world, [ground, leftWall, rightWall]);
+
+        // Registrar botones como obstáculos
+        document.querySelectorAll('.physics-obstacle').forEach(btn => {
+            const bRect = btn.getBoundingClientRect();
+            const hRect = heroSection.getBoundingClientRect();
+            
+            // Posición relativa al contenedor de física
+            const obstacle = Bodies.rectangle(
+                (bRect.left - hRect.left) + bRect.width / 2,
+                (bRect.top - hRect.top) + bRect.height / 2,
+                bRect.width,
+                bRect.height,
+                { isStatic: true, render: { fillStyle: 'transparent' } }
+            );
+            World.add(world, obstacle);
+        });
+    }
+
+    // 2. Fragmentar Texto
+    function fragmentText(selector) {
+        const el = document.querySelector(selector);
+        if(!el) return;
+        const text = el.innerText;
+        el.innerHTML = '';
+        text.split('').forEach(char => {
+            const span = document.createElement('span');
+            span.innerText = char;
+            span.className = 'char-span';
+            if (char === ' ') span.style.paddingRight = '0.3em';
+            el.appendChild(span);
+        });
+    }
+
+    fragmentText('#hero-title-wave');
+    fragmentText('.hero-content-float p');
+
+    // 3. Lógica de Shatter con ScrollTrigger
+    window.addEventListener('load', () => {
+        setupPhysicsObstacles();
+        
+        const chars = document.querySelectorAll('.char-span');
+        
+        chars.forEach((char) => {
+            ScrollTrigger.create({
+                trigger: char,
+                start: "top 2%", // Cuando toca el techo (casi 0)
+                onEnter: () => {
+                    if (char.style.opacity === '0') return;
+                    
+                    const rect = char.getBoundingClientRect();
+                    const hRect = heroSection.getBoundingClientRect();
+                    
+                    // Crear cuerpo físico
+                    const x = (rect.left - hRect.left) + rect.width / 2;
+                    const y = (rect.top - hRect.top) + rect.height / 2;
+                    
+                    const body = Bodies.rectangle(x, y, rect.width, rect.height, {
+                        restitution: 0.6,
+                        friction: 0.1,
+                        angle: (Math.random() - 0.5) * 0.2
+                    });
+                    
+                    // Crear elemento visual para la física
+                    const visual = document.createElement('div');
+                    visual.className = 'falling-letter';
+                    visual.innerText = char.innerText;
+                    visual.style.fontSize = window.getComputedStyle(char).fontSize;
+                    container.appendChild(visual);
+                    
+                    Matter.World.add(world, body);
+                    physicalLetters.push({ body, element: visual, width: rect.width, height: rect.height });
+                    
+                    char.style.opacity = '0';
+                    char.style.pointerEvents = 'none';
+                }
+            });
+        });
+    });
+
+    // 4. Loop de Animación
+    const runner = Runner.create();
+    Runner.run(runner, engine);
+
+    Events.on(engine, 'afterUpdate', () => {
+        physicalLetters.forEach(item => {
+            const { x, y } = item.body.position;
+            const angle = item.body.angle;
+            
+            item.element.style.left = `${x - item.width / 2}px`;
+            item.element.style.top = `${y - item.height / 2}px`;
+            item.element.style.transform = `rotate(${angle}rad)`;
+        });
+    });
+
+    // Recalcular obstáculos al redimensionar
+    window.addEventListener('resize', setupPhysicsObstacles);
+
+    // --- LÓGICA DEL MENÚ MÓVIL ---
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const closeBtn = document.getElementById('close-menu-btn');
+    const menuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    menuBtn?.addEventListener('click', () => menuOverlay.classList.add('active'));
+    closeBtn?.addEventListener('click', () => menuOverlay.classList.remove('active'));
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => menuOverlay.classList.remove('active'));
+    });
+</script>
 </body>
 </html>
