@@ -2503,65 +2503,97 @@
         });
     }
 
-    // 2. Fragmentar Texto
+    // 2. Fragmentar Texto preservando estructura y estilos
     function fragmentText(selector) {
         const el = document.querySelector(selector);
         if(!el) return;
-        const text = el.innerText;
-        el.innerHTML = '';
-        text.split('').forEach(char => {
-            const span = document.createElement('span');
-            span.innerText = char;
-            span.className = 'char-span';
-            if (char === ' ') span.style.paddingRight = '0.3em';
-            el.appendChild(span);
-        });
+
+        const processNode = (node) => {
+            const childNodes = Array.from(node.childNodes);
+            node.innerHTML = '';
+            childNodes.forEach(child => {
+                if (child.nodeType === 3) { // Node.TEXT_NODE
+                    const text = child.textContent;
+                    text.split('').forEach(char => {
+                        const span = document.createElement('span');
+                        span.textContent = char;
+                        span.className = 'char-span';
+                        if (char === ' ') {
+                            span.style.whiteSpace = 'pre';
+                        }
+                        node.appendChild(span);
+                    });
+                } else if (child.nodeType === 1) { // Node.ELEMENT_NODE
+                    if (child.tagName === 'BR') {
+                        node.appendChild(child.cloneNode(true));
+                    } else {
+                        const outer = child.cloneNode(false);
+                        processNode(child);
+                        outer.innerHTML = child.innerHTML;
+                        node.appendChild(outer);
+                    }
+                }
+            });
+        };
+        processNode(el);
     }
 
+    // Inicializar fragmentación
     fragmentText('#hero-title-wave');
     fragmentText('.hero-content-float p');
 
     // 3. Lógica de Shatter con ScrollTrigger
     window.addEventListener('load', () => {
-        setupPhysicsObstacles();
-        
-        const chars = document.querySelectorAll('.char-span');
-        
-        chars.forEach((char) => {
-            ScrollTrigger.create({
-                trigger: char,
-                start: "top 2%", // Cuando toca el techo (casi 0)
-                onEnter: () => {
-                    if (char.style.opacity === '0') return;
-                    
-                    const rect = char.getBoundingClientRect();
-                    const hRect = heroSection.getBoundingClientRect();
-                    
-                    // Crear cuerpo físico
-                    const x = (rect.left - hRect.left) + rect.width / 2;
-                    const y = (rect.top - hRect.top) + rect.height / 2;
-                    
-                    const body = Bodies.rectangle(x, y, rect.width, rect.height, {
-                        restitution: 0.6,
-                        friction: 0.1,
-                        angle: (Math.random() - 0.5) * 0.2
-                    });
-                    
-                    // Crear elemento visual para la física
-                    const visual = document.createElement('div');
-                    visual.className = 'falling-letter';
-                    visual.innerText = char.innerText;
-                    visual.style.fontSize = window.getComputedStyle(char).fontSize;
-                    container.appendChild(visual);
-                    
-                    Matter.World.add(world, body);
-                    physicalLetters.push({ body, element: visual, width: rect.width, height: rect.height });
-                    
-                    char.style.opacity = '0';
-                    char.style.pointerEvents = 'none';
-                }
+        // Pequeño retardo para estabilidad de layout
+        setTimeout(() => {
+            setupPhysicsObstacles();
+            ScrollTrigger.refresh();
+            
+            const chars = document.querySelectorAll('.char-span');
+            
+            chars.forEach((char) => {
+                ScrollTrigger.create({
+                    trigger: char,
+                    start: "top 5%", 
+                    onEnter: () => {
+                        if (char.dataset.shattered === "true" || getComputedStyle(char).opacity === '0') return;
+                        char.dataset.shattered = "true";
+                        
+                        const rect = char.getBoundingClientRect();
+                        const hRect = heroSection.getBoundingClientRect();
+                        
+                        if (rect.width === 0 || rect.top === 0) return;
+
+                        // Crear cuerpo físico
+                        const x = (rect.left - hRect.left) + rect.width / 2;
+                        const y = (rect.top - hRect.top) + rect.height / 2;
+                        
+                        const body = Bodies.rectangle(x, y, rect.width, rect.height, {
+                            restitution: 0.5,
+                            friction: 0.1,
+                            angle: (Math.random() - 0.5) * 0.3
+                        });
+                        
+                        // Crear elemento visual para la física
+                        const visual = document.createElement('div');
+                        visual.className = 'falling-letter';
+                        visual.innerText = char.innerText;
+                        visual.style.fontSize = window.getComputedStyle(char).fontSize;
+                        visual.style.fontFamily = window.getComputedStyle(char).fontFamily;
+                        visual.style.fontWeight = window.getComputedStyle(char).fontWeight;
+                        visual.style.color = window.getComputedStyle(char).color;
+                        container.appendChild(visual);
+                        
+                        Matter.World.add(world, body);
+                        physicalLetters.push({ body, element: visual, width: rect.width, height: rect.height });
+                        
+                        char.style.opacity = '0';
+                        char.style.visibility = 'hidden';
+                        char.style.pointerEvents = 'none';
+                    }
+                });
             });
-        });
+        }, 300);
     });
 
     // 4. Loop de Animación
