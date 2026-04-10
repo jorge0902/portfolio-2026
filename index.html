@@ -443,6 +443,54 @@
             50% { transform: translateY(-5px); opacity: 1; }
         }
 
+        /* Cybertruck Styles */
+        .truck-animation-wrapper {
+            position: absolute;
+            bottom: 5%;
+            left: -300px;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.8;
+            filter: grayscale(0.5) brightness(1.2);
+        }
+
+        .truck { --width: 220; position: relative; width: calc(var(--width) * 1px); height: calc(var(--width) * 0.33px); }
+        .truck * { transition: all 0.25s ease; }
+        .truck:after { content: ""; height: 5%; width: 100%; background: #000; position: absolute; left: 0; bottom: 5%; border-radius: 100%; filter: blur(10px); }
+        .truck__indicator { height: 2%; width: 3%; position: absolute; right: 1.5%; background: #915d08; top: 64%; opacity: 0.45; z-index: 10; }
+        .truck__foglight { height: 2%; width: 1%; position: absolute; left: 2%; background: #911308; top: 58%; opacity: 0.45; z-index: 10; }
+        .truck__taillight { height: 2%; width: 1%; background: radial-gradient(circle at center, #ffebeb, #f00), #f00; box-shadow: 0 0 30px 5px #f33; position: absolute; top: 25%; z-index: 10; left: 0; }
+        .truck__taillight:after { content: ""; height: 100%; width: 800%; background: #ff4d4d; position: absolute; right: 0; top: 0; border-radius: 25%; filter: blur(8px); box-shadow: 0 0 60px 5px #ff8080; }
+        .truck__headlight { height: 5%; width: 4%; position: absolute; right: 0; border-radius: 25%; top: 42%; z-index: 10; transform: rotate(4deg); background: #fff; box-shadow: 0 0 40px 5px #9bf, 0 0 2px 2px #b3ccff inset; }
+        .truck-wheel { border-radius: 100%; height: calc(var(--width) * 0.15px); width: calc(var(--width) * 0.15px); background: #242424; border-top: 1px solid #ccc; position: absolute; bottom: 0; left: 52%; transform: translate(-50%, 0); }
+        .truck-wheel__rim { height: 60%; width: 60%; background: radial-gradient(circle at center, transparent, #666), #0d0d0d; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 100%; animation: spin 0.35s infinite linear; }
+        .truck-wheel__rim:after { content: ""; height: 35%; width: 35%; background: radial-gradient(circle at center,#0d0d0d,#0d0d0d 40%,transparent 40%),radial-gradient(circle at center, #262626, #262626 40%, transparent),#8c8c8c; border: 1px solid #1a1a1a; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 100%; z-index: 2; }
+        @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+        .truck-wheel__spoke { position: absolute; height: 60%; width: 20%; background: linear-gradient(0deg, transparent, #1a1a1a 50%), #808080; border-left: 1px solid #4d4d4d; border-right: 1px solid #333; border-radius: 0 0 25% 25%; top: 50%; left: 50%; transform-origin: top center; transform: translate(-50%, 0) rotate(calc(360 / 7 * var(--index) * 1deg)); }
+        .truck__wheel { position: absolute; }
+        .truck__wheel--front { height: 57%; width: 21%; bottom: 0; left: 75%; z-index: 4; transform: rotate(2deg); }
+        .truck__wheel--rear { height: 57%; width: 21%; bottom: 2%; left: 10%; z-index: 4; transform: rotate(2deg); }
+        .truck__wheel-arch { background: #080808; position: absolute; top: 0; left: 0; right: 1%; height: 54%; -webkit-clip-path: polygon(0 100%, 23% 0, 81% 0%, 95% 60%, 95% 100%); clip-path: polygon(0 100%, 23% 0, 81% 0%, 95% 60%, 95% 100%); }
+        .truck__wheel-arch-trim--top { top: 0; left: 25%; background: #8c8c8c; height: 5%; width: 53%; z-index: 2; position: absolute; }
+        .truck__wheel-arch-trim--left { top: 0; left: -20%; background: linear-gradient(160deg, transparent, #666), #333; height: 5%; width: 44%; transform-origin: top right; transform: rotate(-60deg); position: absolute; }
+        .truck__wheel-arch-trim--right { top: 0; left: 79%; background: linear-gradient(-158deg, transparent, #666), #333; height: 5%; width: 35%; transform-origin: top left; transform: rotate(58deg); position: absolute; }
+        .truck__body { position: absolute; height: 100%; width: 100%; }
+        .truck__body--top { background: linear-gradient(90deg, #f4f1f1, #bfbfbf 50%), #e8e3e3; height: 33%; width: 100%; top: 0; transform: rotate(3deg); -webkit-clip-path: polygon(0 100%, 58% 0, 98% 100%); clip-path: polygon(0 100%, 58% 0, 98% 100%); }
+        .truck__body--top:before { --groove: #999; content: ""; background: linear-gradient(95deg,transparent,transparent 2%,var(--groove) 2%,var(--groove) 3%,transparent 3%),linear-gradient(75deg,transparent,transparent 47%,var(--groove) 47%,var(--groove) 48%,transparent 48%),linear-gradient(78deg,transparent,transparent 95%,var(--groove) 95%,var(--groove) 96%,transparent 96%); position: absolute; height: 55%; width: 40%; left: 36%; bottom: 0; -webkit-clip-path: polygon(0 100%, 0 0, 100% 58%, 100% 100%); clip-path: polygon(0 100%, 0 0, 100% 58%, 100% 100%); }
+        .truck__body--mid { position: absolute; width: 100%; height: 36%; top: 25%; transform: rotate(3deg); transform-origin: top left; z-index: 2; }
+        .truck__body--mid:after { content: ""; position: absolute; background: #1f1f1f; height: 20%; width: 5%; bottom: 20%; right: -0.25%; opacity: 1; border-left: 1px solid #1a1a1a; }
+        .truck__body--mid:before { content: ""; position: absolute; background: #0f0f0f; height: 20%; width: 5%; bottom: 5%; right: 0%; border-radius: 0 0 50% 25%; border-left: 1px solid #141414; }
+        .truck__body--bottom { top: 50%; height: 32%; }
+        .truck__rear-bumper { position: absolute; height: 1px; width: 9%; background: #808080; top: 38%; left: 2.5%; transform-origin: top left; transform: rotate(3deg); }
+        .truck__side-skirt { height: 1px; width: 43%; position: absolute; bottom: 19%; left: 32%; transform-origin: top left; transform: rotate(1deg); background: #808080; }
+        .truck__underpanel { background: #080808; height: 65%; width: 100%; position: absolute; bottom: 0; -webkit-clip-path: polygon(2% 0, 14% 100%, 88% 100%, 99% 60%, 99% 40%); clip-path: polygon(2% 0, 14% 100%, 88% 100%, 99% 60%, 99% 40%); }
+        .truck__mid-body { --groove: #262626; height: 100%; width: 100%; background: linear-gradient(84deg,transparent,transparent 36.75%,var(--groove) 36.75%,var(--groove) 37.25%,transparent 37.25%),linear-gradient(83deg,transparent,transparent 55.75%,var(--groove) 55.75%,var(--groove) 56.25%,transparent 56.25%),linear-gradient(88deg,transparent,transparent 75%,var(--groove) 75%,var(--groove) 75.5%,transparent 75.5%),linear-gradient(90deg, transparent, transparent 96%, #1f1f1f 96%),linear-gradient(90deg, transparent, #262626), #333; -webkit-clip-path: polygon(0 0, 3% 100%, 80% 84%, 99.5% 78%, 100% 10%, 98% 0); clip-path: polygon(0 0, 3% 100%, 80% 84%, 99.5% 78%, 100% 10%, 98% 0); }
+        .truck__mid-body:after, .truck__mid-body:before { content: ""; position: absolute; width: 4%; height: 4%; left: 38%; top: 6%; border: 1px solid #4d4d4d; border-radius: 25%; }
+        .truck__mid-body:before { left: 58%; }
+        .truck__window { --window-black: rgba(0, 0, 0, 0.85); --window-white: rgba(255, 255, 255, 0.3); position: absolute; height: 80%; width: 60%; background: #000; left: 37%; transform: skew(-5deg); -webkit-clip-path: polygon(0 100%, 0 55%, 34.5% 11%, 85% 108%); clip-path: polygon(0 100%, 0 55%, 34.5% 11%, 85% 108%); }
+        .truck__window-glass { background: linear-gradient(0deg,var(--window-black) 0,var(--window-black) 15%,transparent 15%),linear-gradient(90deg, transparent, var(--window-black) 90%),linear-gradient(90deg, var(--window-white), transparent 80%),linear-gradient(68deg,transparent,transparent 30%,var(--window-black) 30%,var(--window-black) 31%,transparent 31%,transparent 55%,var(--window-black) 55%,var(--window-black) 56%,transparent 56%),var(--window-white); position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); height: 88%; width: 98%; -webkit-clip-path: polygon(0 100%, 0 55%, 34.5% 11%, 85% 105%); clip-path: polygon(0 100%, 0 55%, 34.5% 11%, 85% 105%); }
+        .truck__window:before { content: ""; background: #000; position: absolute; height: 10%; width: 100%; bottom: 0; transform: rotate(2deg); z-index: -1; -webkit-clip-path: polygon(40% 100%, 100% -100%, 100% 100%); clip-path: polygon(40% 100%, 100% -100%, 100% 100%); }
+
         /* Mobile Menu */
         #mobile-menu-overlay {
             display: none;
@@ -1154,6 +1202,216 @@
             60% { transform: rotateX(80deg) rotateY(0deg) translateX(30px); box-shadow: 0 0 60px 40px rgba(0,0,0,0.3); }
             100% { box-shadow: 0 0 60px 40px rgba(0,0,0,0.3); }
         }
+
+        /* Botón Principal - Glow Premium */
+        .btn-primary-glow {
+            --glow-color: rgb(142, 255, 113);
+            --glow-spread-color: rgba(142, 255, 113, 0.781);
+            --enhanced-glow-color: rgb(176, 255, 157);
+            --btn-color: rgb(12, 45, 12);
+            border: .25em solid var(--glow-color);
+            padding: 1em 3em;
+            color: var(--glow-color);
+            font-size: 15px;
+            font-weight: bold;
+            background-color: var(--btn-color);
+            border-radius: 1em;
+            outline: none;
+            box-shadow: 0 0 1em .25em var(--glow-color),
+                    0 0 4em 1em var(--glow-spread-color),
+                    inset 0 0 .75em .25em var(--glow-color);
+            text-shadow: 0 0 .5em var(--glow-color);
+            position: relative;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .btn-primary-glow::after {
+            pointer-events: none;
+            content: "";
+            position: absolute;
+            top: 120%;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: var(--glow-spread-color);
+            filter: blur(2em);
+            opacity: .7;
+            transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
+        }
+
+        .btn-primary-glow:hover {
+            color: var(--btn-color);
+            background-color: var(--glow-color);
+            box-shadow: 0 0 1em .25em var(--glow-color),
+                    0 0 4em 2em var(--glow-spread-color),
+                    inset 0 0 .75em .25em var(--glow-color);
+        }
+
+        .btn-primary-glow:active {
+            box-shadow: 0 0 0.6em .25em var(--glow-color),
+                    0 0 2.5em 2em var(--glow-spread-color),
+                    inset 0 0 .5em .25em var(--glow-color);
+            transform: scale(0.95);
+        }
+
+        /* Botón Secundario - Sencillo */
+        .btn-secondary-simple {
+            padding: 1em 3em;
+            color: #8eff71;
+            font-size: 15px;
+            font-weight: bold;
+            background-color: transparent;
+            border: 2px solid rgba(142, 255, 113, 0.3);
+            border-radius: 1em;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .btn-secondary-simple:hover {
+            background-color: rgba(142, 255, 113, 0.1);
+            border-color: #8eff71;
+            box-shadow: 0 0 20px rgba(142, 255, 113, 0.2);
+        }
+
+        .btn-secondary-simple:active {
+            transform: scale(0.95);
+        }
+
+        /* Earth Component from Uiverse.io by Lakshay-art */ 
+        .section-banner {
+          height: 250px;
+          width: 250px;
+          position: relative;
+          transition: left 0.3s linear;
+          background: url("data:image/jpeg;base64,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");
+          background-size: cover;
+          background-position: left;
+          bottom: 0px;
+          border-radius: 50%;
+          animation: earthRotate 30s linear 0s infinite;
+          box-shadow: 0px 0 20px RGBA(255, 255, 255, 0.2), -5px 0px 8px #c3f4ff inset,
+            15px 2px 25px #000 inset, -24px -2px 34px #c3f4ff99 inset,
+            250px 0px 44px #00000066 inset, 150px 0px 38px #000000aa inset;
+        }
+
+        @keyframes earthRotate {
+          0% {
+            background-position: 0 0;
+          }
+          100% {
+            background-position: 400px 0;
+          }
+        }
+
+        .curved-corner-star {
+          display: flex;
+          position: relative;
+        }
+
+        #curved-corner-bottomleft,
+        #curved-corner-bottomright,
+        #curved-corner-topleft,
+        #curved-corner-topright {
+          width: 4px;
+          height: 5px;
+          overflow: hidden;
+          position: relative;
+        }
+
+        #curved-corner-bottomleft:before,
+        #curved-corner-bottomright:before,
+        #curved-corner-topleft:before,
+        #curved-corner-topright:before {
+          content: "";
+          display: block;
+          width: 200%;
+          height: 200%;
+          position: absolute;
+          border-radius: 50%;
+        }
+
+        #curved-corner-bottomleft:before {
+          bottom: 0;
+          left: 0;
+          box-shadow: -5px 5px 0 0 white;
+        }
+
+        #curved-corner-bottomright:before {
+          bottom: 0;
+          right: 0;
+          box-shadow: 5px 5px 0 0 white;
+        }
+
+        #curved-corner-topleft:before {
+          top: 0;
+          left: 0;
+          box-shadow: -5px -5px 0 0 white;
+        }
+
+        #curved-corner-topright:before {
+          top: 0;
+          right: 0;
+          box-shadow: 5px -5px 0 0 white;
+        }
+
+        @keyframes twinkling {
+          0%,
+          100% {
+            opacity: 0.1;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+
+        #star-1 {
+          position: absolute;
+          left: -20px;
+          animation: twinkling 3s infinite;
+        }
+
+        #star-2 {
+          position: absolute;
+          left: -40px;
+          top: 30px;
+          animation: twinkling 2s infinite;
+        }
+        #star-3 {
+          position: absolute;
+          left: 350px;
+          top: 90px;
+          animation: twinkling 4s infinite;
+        }
+        #star-4 {
+          position: absolute;
+          left: 200px;
+          top: 290px;
+          animation: twinkling 3s infinite;
+        }
+        #star-5 {
+          position: absolute;
+          left: 50px;
+          top: 270px;
+          animation: twinkling 1.5s infinite;
+        }
+
+        #star-6 {
+          position: absolute;
+          left: 250px;
+          top: -50px;
+          animation: twinkling 4s infinite;
+        }
+        #star-7 {
+          position: absolute;
+          left: 290px;
+          top: 60px;
+          animation: twinkling 2s infinite;
+        }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
@@ -1202,23 +1460,82 @@
                 <div class="col-span-1 border-r border-outline-variant/20"></div>
             </div>
         </div>
-        <div class="relative z-10 max-w-5xl hero-content-float">
+        <div class="relative z-10 max-w-none hero-content-float">
             <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 bg-surface-container-highest border-l-2 border-primary reveal-item">
                 <span class="font-label text-primary text-[0.75rem] tracking-widest uppercase">ESTADO_SISTEMA: OPTIMIZADO</span>
             </div>
-            <h1 id="hero-title-wave" class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-6 leading-[0.9] reveal-item">
-                Páginas Web Increíbles & <span class="text-primary terminal-glow">Sistemas</span> que trabajan por ti.
+            <h1 id="hero-title-wave" class="text-4xl md:text-5xl lg:text-5xl font-black tracking-normal uppercase mb-8 leading-tight reveal-item">
+                Páginas Web Increíbles & <span class="text-primary terminal-glow">Sistemas</span> <br class="hidden lg:block"> que trabajan por ti.
             </h1>
             <p class="text-lg md:text-xl text-on-surface-variant font-light max-w-2xl mb-10 reveal-item">
                 Hacemos que tu negocio luzca profesional, atraiga más clientes y automatice esas tareas manuales que te quitan tiempo.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 reveal-item">
-                <button class="bg-primary text-on-primary px-10 py-4 text-lg font-bold uppercase transition-all hover:brightness-110 active:scale-95 btn-pulse">
+            <div class="flex flex-col sm:flex-row gap-4 reveal-item mt-10">
+                <button class="btn-primary-glow">
                     Agenda una Auditoría de Eficiencia
                 </button>
-                <a href="#portafolio" class="border border-outline-variant text-on-surface px-10 py-4 text-lg font-bold uppercase hover:bg-surface-container-high transition-all text-center">
+                <a href="#portafolio" class="btn-secondary-simple text-center flex items-center justify-center">
                     Ver Proyectos
                 </a>
+            </div>
+        </div>
+
+        <!-- Cybertruck Animation -->
+        <div class="truck-animation-wrapper">
+            <div class="truck">
+                <div class="truck__body">
+                    <div class="truck__body truck__body--top">
+                    <div class="truck__window">
+                        <div class="truck__window-glass"></div>
+                    </div>
+                    </div>
+                    <div class="truck__body truck__body--mid">
+                    <div class="truck__mid-body"></div>
+                    </div>
+                    <div class="truck__body truck__body--bottom">
+                    <div class="truck__underpanel"></div>
+                    <div class="truck__rear-bumper"></div>
+                    <div class="truck__side-skirt"></div>
+                    </div>
+                </div>
+                <div class="truck__wheel truck__wheel--front">
+                    <div class="truck__wheel-arch"></div>
+                    <div class="truck__wheel-arch-trim truck__wheel-arch-trim--top"></div>
+                    <div class="truck__wheel-arch-trim truck__wheel-arch-trim--left"></div>
+                    <div class="truck__wheel-arch-trim truck__wheel-arch-trim--right"></div>
+                    <div class="truck-wheel">
+                    <div class="truck-wheel__rim">
+                        <div style="--index: 0;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 1;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 2;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 3;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 4;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 5;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 6;" class="truck-wheel__spoke"></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="truck__wheel truck__wheel--rear">
+                    <div class="truck__wheel-arch"></div>
+                    <div class="truck__wheel-arch-trim truck__wheel-arch-trim--top"></div>
+                    <div class="truck__wheel-arch-trim truck__wheel-arch-trim--left"></div>
+                    <div class="truck__wheel-arch-trim truck__wheel-arch-trim--right"></div>
+                    <div class="truck-wheel">
+                    <div class="truck-wheel__rim">
+                        <div style="--index: 0;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 1;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 2;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 3;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 4;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 5;" class="truck-wheel__spoke"></div>
+                        <div style="--index: 6;" class="truck-wheel__spoke"></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="truck__headlight"></div>
+                <div class="truck__taillight"></div>
+                <div class="truck__indicator"></div>
+                <div class="truck__foglight"></div>
             </div>
         </div>
     </section>
@@ -1662,7 +1979,7 @@
 
     <!-- Footer -->
 <footer class="bg-[#0e0e0f] w-full border-t border-[#1f1f21] mt-auto">
-    <div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 w-full max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 w-full max-w-7xl mx-auto border-b border-[#1f1f21]">
         <div class="text-sm font-bold text-[#8eff71] font-['Space_Grotesk'] uppercase mb-8 md:mb-0">
             © 2024 JORGE RICARDO | ARCHITECT_AUTOMATION.
         </div>
@@ -1672,24 +1989,165 @@
             <a class="font-['Space_Grotesk'] text-[0.75rem] uppercase tracking-widest text-zinc-600 hover:text-[#8eff71] transition-colors cursor-crosshair" href="#">LINKEDIN</a>
         </div>
     </div>
+    
+    </div>
 </footer>
+
+<!-- Earth Component Section -->
+<section class="py-24 relative overflow-visible flex justify-center items-center">
+    <div class="section-banner">
+        <div id="star-1">
+            <div class="curved-corner-star">
+                <div id="curved-corner-bottomright"></div>
+                <div id="curved-corner-bottomleft"></div>
+            </div>
+            <div class="curved-corner-star">
+                <div id="curved-corner-topright"></div>
+                <div id="curved-corner-topleft"></div>
+            </div>
+        </div>
+
+        <div id="star-2">
+            <div class="curved-corner-star">
+                <div id="curved-corner-bottomright"></div>
+                <div id="curved-corner-bottomleft"></div>
+            </div>
+            <div class="curved-corner-star">
+                <div id="curved-corner-topright"></div>
+                <div id="curved-corner-topleft"></div>
+            </div>
+        </div>
+
+        <div id="star-3">
+            <div class="curved-corner-star">
+                <div id="curved-corner-bottomright"></div>
+                <div id="curved-corner-bottomleft"></div>
+            </div>
+            <div class="curved-corner-star">
+                <div id="curved-corner-topright"></div>
+                <div id="curved-corner-topleft"></div>
+            </div>
+        </div>
+
+        <div id="star-4">
+            <div class="curved-corner-star">
+                <div id="curved-corner-bottomright"></div>
+                <div id="curved-corner-bottomleft"></div>
+            </div>
+            <div class="curved-corner-star">
+                <div id="curved-corner-topright"></div>
+                <div id="curved-corner-topleft"></div>
+            </div>
+        </div>
+
+        <div id="star-5">
+            <div class="curved-corner-star">
+                <div id="curved-corner-bottomright"></div>
+                <div id="curved-corner-bottomleft"></div>
+            </div>
+            <div class="curved-corner-star">
+                <div id="curved-corner-topright"></div>
+                <div id="curved-corner-topleft"></div>
+            </div>
+        </div>
+
+        <div id="star-6">
+            <div class="curved-corner-star">
+                <div id="curved-corner-bottomright"></div>
+                <div id="curved-corner-bottomleft"></div>
+            </div>
+            <div class="curved-corner-star">
+                <div id="curved-corner-topright"></div>
+                <div id="curved-corner-topleft"></div>
+            </div>
+        </div>
+
+        <div id="star-7">
+            <div class="curved-corner-star">
+                <div id="curved-corner-bottomright"></div>
+                <div id="curved-corner-bottomleft"></div>
+            </div>
+            <div class="curved-corner-star">
+                <div id="curved-corner-topright"></div>
+                <div id="curved-corner-topleft"></div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // Función auxiliar para dividir texto en spans
+    // Función avanzada para dividir texto en spans respetando etiquetas HTML y protegiendo palabras
     function splitTextToSpans(selector, className = "") {
         const element = document.querySelector(selector);
         if (!element) return;
-        const text = element.innerText;
+        
+        const originalHTML = element.innerHTML;
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = originalHTML;
+        
+        const nodes = Array.from(tempDiv.childNodes);
         element.innerHTML = "";
-        text.split("").forEach((char, i) => {
-            const span = document.createElement("span");
-            span.innerText = char === " " ? "\u00A0" : char;
-            span.classList.add("char-inline");
-            if (className) span.classList.add(className);
-            span.style.setProperty("--delay", `${i * 0.1}s`);
-            element.appendChild(span);
+        let charIndex = 0;
+
+        nodes.forEach(node => {
+            if (node.nodeName === "BR") {
+                element.appendChild(document.createElement("br"));
+            } else if (node.nodeType === Node.TEXT_NODE) {
+                const words = node.textContent.split(/(\s+)/);
+                words.forEach(word => {
+                    if (word.trim() === "") {
+                        // Manejar espacios
+                        const span = document.createElement("span");
+                        span.innerText = "\u00A0";
+                        span.classList.add("char-inline", "space-char");
+                        if (className) span.classList.add(className);
+                        span.style.setProperty("--delay", `${charIndex++ * 0.05}s`);
+                        element.appendChild(span);
+                    } else if (word.length > 0) {
+                        // Proteger palabra completa
+                        const wordSpan = document.createElement("span");
+                        wordSpan.className = "inline-block whitespace-nowrap";
+                        word.split("").forEach(char => {
+                            const charSpan = document.createElement("span");
+                            charSpan.innerText = char;
+                            charSpan.classList.add("char-inline");
+                            if (className) charSpan.classList.add(className);
+                            charSpan.style.setProperty("--delay", `${charIndex++ * 0.05}s`);
+                            wordSpan.appendChild(charSpan);
+                        });
+                        element.appendChild(wordSpan);
+                    }
+                });
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                const isPrimary = node.classList.contains("text-primary");
+                const words = node.innerText.split(/(\s+)/);
+                words.forEach(word => {
+                    if (word.trim() === "") {
+                        const span = document.createElement("span");
+                        span.innerText = "\u00A0";
+                        span.classList.add("char-inline", "space-char");
+                        if (isPrimary) span.classList.add("text-primary", "terminal-glow");
+                        if (className) span.classList.add(className);
+                        span.style.setProperty("--delay", `${charIndex++ * 0.05}s`);
+                        element.appendChild(span);
+                    } else if (word.length > 0) {
+                        const wordSpan = document.createElement("span");
+                        wordSpan.className = "inline-block whitespace-nowrap";
+                        if (isPrimary) wordSpan.classList.add("text-primary", "terminal-glow");
+                        word.split("").forEach(char => {
+                            const charSpan = document.createElement("span");
+                            charSpan.innerText = char;
+                            charSpan.classList.add("char-inline");
+                            if (className) charSpan.classList.add(className);
+                            charSpan.style.setProperty("--delay", `${charIndex++ * 0.05}s`);
+                            wordSpan.appendChild(charSpan);
+                        });
+                        element.appendChild(wordSpan);
+                    }
+                });
+            }
         });
     }
 
@@ -1706,6 +2164,37 @@
         ease: "power2.out",
         delay: 0.5
     });
+
+    // Animación Cybertruck Bucle (Derecha -> Izquierda -> Derecha)
+    const truck = document.querySelector(".truck-animation-wrapper");
+    if (truck) {
+        const tl = gsap.timeline({ 
+            repeat: -1, 
+            repeatDelay: 5,
+            delay: 0.5 
+        });
+        
+        // Preparar posición inicial (Fuera de pantalla derecha, mirando a la izquierda)
+        tl.set(truck, { x: window.innerWidth + 800, scaleX: -1 });
+
+        // Pasada 1: Derecha a Izquierda
+        tl.to(truck, {
+            x: -400,
+            duration: 2.5,
+            ease: "power1.inOut"
+        });
+
+        // Giro
+        tl.set(truck, { scaleX: 1 });
+
+        // Pasada 2: Izquierda a Derecha
+        tl.to(truck, {
+            x: window.innerWidth + 800,
+            duration: 2.5,
+            ease: "power1.inOut",
+            delay: 0.8
+        });
+    }
 
     // Efecto Gravedad en el título del Portafolio
     const shatterChars = document.querySelectorAll(".shatter-char");
