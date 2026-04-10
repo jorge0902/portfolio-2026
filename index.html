@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -1450,30 +1449,6 @@
           left: 290px;
           top: 60px;
           animation: twinkling 2s infinite;
-        /* Estilos Física Hero */
-        #physics-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5;
-        }
-        .falling-letter {
-            position: absolute;
-            pointer-events: none;
-            will-change: transform;
-            z-index: 20;
-            font-weight: 900;
-            text-transform: uppercase;
-            color: #8eff71;
-            text-shadow: 0 0 10px rgba(142, 255, 113, 0.5);
-        }
-        .char-span {
-            display: inline-block;
-            transition: opacity 0.2s;
-        }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
@@ -1500,8 +1475,7 @@
 
 <main class="pt-24">
     <!-- Hero Section -->
-    <section id="hero-physics-space" class="relative min-h-[85vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 border-b border-outline-variant/15 overflow-hidden">
-        <div id="physics-container"></div>
+    <section class="relative min-h-[85vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 border-b border-outline-variant/15 overflow-hidden">
         <!-- Hero Particles -->
         <div class="hero-particles-bg">
             <div class="h-particle" style="width: 4px; height: 4px; left: 10%; animation-delay: 0s;"></div>
@@ -1534,10 +1508,10 @@
                 Hacemos que tu negocio luzca profesional, atraiga más clientes y automatice esas tareas manuales que te quitan tiempo.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 reveal-item mt-10">
-                <button id="hero-btn-1" class="btn-primary-glow physics-obstacle">
+                <button id="hero-btn-1" class="btn-primary-glow">
                     Agenda una Auditoría de Eficiencia
                 </button>
-                <a id="hero-btn-2" href="#portafolio" class="btn-secondary-simple text-center flex items-center justify-center physics-obstacle">
+                <a id="hero-btn-2" href="#portafolio" class="btn-secondary-simple text-center flex items-center justify-center">
                     Ver Proyectos
                 </a>
             </div>
@@ -2459,160 +2433,6 @@
     </div>
 
 <script>
-    // --- LÓGICA DE FÍSICA MATTER.JS PARA EL HERO ---
-    const { Engine, Render, Runner, Bodies, Composite, World, Events } = Matter;
-
-    const engine = Engine.create();
-    const world = engine.world;
-    const container = document.getElementById('physics-container');
-    const heroSection = document.getElementById('hero-physics-space');
-    const physicalLetters = [];
-
-    // 1. Crear Suelo y Obstáculos (Botones)
-    function setupPhysicsObstacles() {
-        World.clear(world);
-        
-        const rect = heroSection.getBoundingClientRect();
-        
-        // Suelo de la sección
-        const ground = Bodies.rectangle(rect.width / 2, rect.height - 10, rect.width, 20, { 
-            isStatic: true,
-            render: { fillStyle: 'transparent' }
-        });
-        
-        // Paredes laterales
-        const leftWall = Bodies.rectangle(-10, rect.height / 2, 20, rect.height, { isStatic: true });
-        const rightWall = Bodies.rectangle(rect.width + 10, rect.height / 2, 20, rect.height, { isStatic: true });
-        
-        World.add(world, [ground, leftWall, rightWall]);
-
-        // Registrar botones como obstáculos
-        document.querySelectorAll('.physics-obstacle').forEach(btn => {
-            const bRect = btn.getBoundingClientRect();
-            const hRect = heroSection.getBoundingClientRect();
-            
-            // Posición relativa al contenedor de física
-            const obstacle = Bodies.rectangle(
-                (bRect.left - hRect.left) + bRect.width / 2,
-                (bRect.top - hRect.top) + bRect.height / 2,
-                bRect.width,
-                bRect.height,
-                { isStatic: true, render: { fillStyle: 'transparent' } }
-            );
-            World.add(world, obstacle);
-        });
-    }
-
-    // 2. Fragmentar Texto preservando estructura y estilos
-    function fragmentText(selector) {
-        const el = document.querySelector(selector);
-        if(!el) return;
-
-        const processNode = (node) => {
-            const childNodes = Array.from(node.childNodes);
-            node.innerHTML = '';
-            childNodes.forEach(child => {
-                if (child.nodeType === 3) { // Node.TEXT_NODE
-                    const text = child.textContent;
-                    text.split('').forEach(char => {
-                        const span = document.createElement('span');
-                        span.textContent = char;
-                        span.className = 'char-span';
-                        if (char === ' ') {
-                            span.style.whiteSpace = 'pre';
-                        }
-                        node.appendChild(span);
-                    });
-                } else if (child.nodeType === 1) { // Node.ELEMENT_NODE
-                    if (child.tagName === 'BR') {
-                        node.appendChild(child.cloneNode(true));
-                    } else {
-                        const outer = child.cloneNode(false);
-                        processNode(child);
-                        outer.innerHTML = child.innerHTML;
-                        node.appendChild(outer);
-                    }
-                }
-            });
-        };
-        processNode(el);
-    }
-
-    // Inicializar fragmentación
-    fragmentText('#hero-title-wave');
-    fragmentText('.hero-content-float p');
-
-    // 3. Lógica de Shatter con ScrollTrigger
-    window.addEventListener('load', () => {
-        // Pequeño retardo para estabilidad de layout
-        setTimeout(() => {
-            setupPhysicsObstacles();
-            ScrollTrigger.refresh();
-            
-            const chars = document.querySelectorAll('.char-span');
-            
-            chars.forEach((char) => {
-                ScrollTrigger.create({
-                    trigger: char,
-                    start: "top 5%", 
-                    onEnter: () => {
-                        if (char.dataset.shattered === "true" || getComputedStyle(char).opacity === '0') return;
-                        char.dataset.shattered = "true";
-                        
-                        const rect = char.getBoundingClientRect();
-                        const hRect = heroSection.getBoundingClientRect();
-                        
-                        if (rect.width === 0 || rect.top === 0) return;
-
-                        // Crear cuerpo físico
-                        const x = (rect.left - hRect.left) + rect.width / 2;
-                        const y = (rect.top - hRect.top) + rect.height / 2;
-                        
-                        const body = Bodies.rectangle(x, y, rect.width, rect.height, {
-                            restitution: 0.5,
-                            friction: 0.1,
-                            angle: (Math.random() - 0.5) * 0.3
-                        });
-                        
-                        // Crear elemento visual para la física
-                        const visual = document.createElement('div');
-                        visual.className = 'falling-letter';
-                        visual.innerText = char.innerText;
-                        visual.style.fontSize = window.getComputedStyle(char).fontSize;
-                        visual.style.fontFamily = window.getComputedStyle(char).fontFamily;
-                        visual.style.fontWeight = window.getComputedStyle(char).fontWeight;
-                        visual.style.color = window.getComputedStyle(char).color;
-                        container.appendChild(visual);
-                        
-                        Matter.World.add(world, body);
-                        physicalLetters.push({ body, element: visual, width: rect.width, height: rect.height });
-                        
-                        char.style.opacity = '0';
-                        char.style.visibility = 'hidden';
-                        char.style.pointerEvents = 'none';
-                    }
-                });
-            });
-        }, 300);
-    });
-
-    // 4. Loop de Animación
-    const runner = Runner.create();
-    Runner.run(runner, engine);
-
-    Events.on(engine, 'afterUpdate', () => {
-        physicalLetters.forEach(item => {
-            const { x, y } = item.body.position;
-            const angle = item.body.angle;
-            
-            item.element.style.left = `${x - item.width / 2}px`;
-            item.element.style.top = `${y - item.height / 2}px`;
-            item.element.style.transform = `rotate(${angle}rad)`;
-        });
-    });
-
-    // Recalcular obstáculos al redimensionar
-    window.addEventListener('resize', setupPhysicsObstacles);
 
     // --- LÓGICA DEL MENÚ MÓVIL ---
     const menuBtn = document.getElementById('mobile-menu-btn');
