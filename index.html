@@ -2280,50 +2280,53 @@
 
         const shatterLetters = gsap.utils.toArray('.shatter-letter');
         
-        // Pinning del contenedor principal para mayor estabilidad en móviles
-        ScrollTrigger.create({
-            trigger: "#gravity-shatter",
-            start: "top top",
-            end: "bottom top",
-            pin: true,
-            scrub: true
-        });
-
-        shatterLetters.forEach((letter, index) => {
-            const seed = index * 123.456;
-            const randomY = 500 + (seed % 200);      
-            const randomRot = -360 + (seed % 720);   
-            const randomX = -400 + (seed % 800);    
-            const randomScale = 0.8 + ((seed % 40) / 100); 
-
-            gsap.to(letter, {
-                y: randomY,
-                x: randomX,
-                rotationZ: randomRot,
-                scale: randomScale,
-                opacity: 1,
-                ease: "power2.inOut", 
-                scrollTrigger: {
-                    trigger: "#gravity-shatter",
-                    start: `top+=${(index % shatterLetters.length) * (80 / shatterLetters.length)}% top`, 
-                    end: "bottom top", 
-                    scrub: 1.5 
+        // Timeline único maestro para coordinar todo el efecto
+        const shatterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#gravity-shatter",
+                start: "top top",
+                end: "bottom top",
+                pin: true,
+                scrub: 1.5,
+                // Refrescar ScrollTrigger al terminar para evitar saltos en móviles
+                onRefresh: self => {
+                    if (window.innerWidth <= 768) {
+                        // Ajustes ligeros para móviles si fuera necesario
+                    }
                 }
-            });
+            }
         });
 
-        // Animación dinámica extrema de las imágenes (Parallax 3D fuerte y suave)
-        gsap.fromTo('.shatter-img-1', 
+        // 1. Animación de EXPLOSIÓN de las letras en todas las direcciones
+        shatterTl.to(shatterLetters, {
+            x: () => (Math.random() - 0.5) * (window.innerWidth > 768 ? 1000 : 600),
+            y: () => (Math.random() - 0.5) * (window.innerHeight > 768 ? 1000 : 600),
+            rotation: () => (Math.random() - 0.5) * 720,
+            scale: () => 0.5 + Math.random(),
+            opacity: 0,
+            duration: 1.5,
+            stagger: {
+                amount: 1,
+                from: "center"
+            },
+            ease: "power2.inOut"
+        }, 0);
+
+        // 2. Mantener la animación de las imágenes (Parallax 3D) dentro del mismo Timeline
+        shatterTl.fromTo('.shatter-img-1', 
             { yPercent: 0, xPercent: 0, rotationZ: -5, rotationY: 0, scale: 1, opacity: 1 },
-            { yPercent: -200, xPercent: -100, rotationZ: -60, rotationY: 45, scale: 0.3, opacity: 0, ease: "power1.inOut", scrollTrigger: { trigger: "#gravity-shatter", start: "top top", end: "bottom top", scrub: 1.5 } }
+            { yPercent: -150, xPercent: -80, rotationZ: -40, rotationY: 30, scale: 0.5, opacity: 0, ease: "none" },
+            0
         );
-        gsap.fromTo('.shatter-img-2', 
+        shatterTl.fromTo('.shatter-img-2', 
             { yPercent: 10, xPercent: 0, rotationZ: 5, rotationX: 0, scale: 0.9, opacity: 1 },
-            { yPercent: -250, xPercent: 100, rotationZ: 85, rotationX: -60, scale: 2.2, opacity: 0, ease: "power1.inOut", scrollTrigger: { trigger: "#gravity-shatter", start: "top top", end: "bottom top", scrub: 1.5 } }
+            { yPercent: -200, xPercent: 80, rotationZ: 60, rotationX: -40, scale: 1.8, opacity: 0, ease: "none" },
+            0
         );
-        gsap.fromTo('.shatter-img-3', 
+        shatterTl.fromTo('.shatter-img-3', 
             { yPercent: 50, xPercent: 0, rotationZ: -10, rotationY: 0, scale: 1, opacity: 1 },
-            { yPercent: -300, xPercent: -50, rotationZ: 45, rotationY: -80, scale: 0.1, opacity: 0, ease: "power1.inOut", scrollTrigger: { trigger: "#gravity-shatter", start: "top top", end: "bottom top", scrub: 1.5 } }
+            { yPercent: -250, xPercent: -40, rotationZ: 30, rotationY: -60, scale: 0.2, opacity: 0, ease: "none" },
+            0
         );
     }
 
